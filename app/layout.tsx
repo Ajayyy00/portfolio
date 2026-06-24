@@ -5,6 +5,7 @@ import { site } from "@/data/site";
 import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
 import CustomCursor from "@/components/CustomCursor";
+import Scene3DBackground from "@/components/Scene3DBackgroundLoader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -66,6 +67,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="custom-cursor-active bg-bg text-text antialiased">
+        <Scene3DBackground />
         <ScrollProgress />
         <CustomCursor />
         <Navbar />

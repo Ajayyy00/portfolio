@@ -1,7 +1,7 @@
 import type { Domain } from "@/lib/domains";
 import { site } from "@/data/site";
 
-export type ProjectFilter = "AI" | "Security" | "Full-Stack" | "Hardware";
+export type ProjectFilter = "AI" | "Security" | "Full-Stack" | "Hardware" | "VR";
 
 /** One node in a project's data-flow / architecture diagram. */
 export interface ArchStage {
@@ -247,6 +247,50 @@ export const projects: Project[] = [
     },
     github: site.github,
   },
+  {
+    id: "vr-flatlock",
+    title: "VR Flatlock Machine Simulation",
+    tag: "VR · Industrial Training",
+    domain: "systems",
+    accent: "fullstack",
+    categories: ["VR", "Hardware"],
+    description:
+      "Standalone VR simulation of a 5-thread flatlock machine for hands-on industrial training.",
+    longDescription:
+      "A virtual-reality training simulator built for PSG's Software Development Cell that recreates a real 5-thread flatlock sewing machine — the kind used on industrial garment lines — inside a fully interactive Unity 3D scene. Every operator-facing mechanism (the pedal, thread tensioners, fabric feed and the looping motion of the 5-thread stitch) was modelled and rigged so trainees can practice the actual sequence of operating the machine in VR before ever touching the physical one, removing the risk of injury, fabric waste and machine damage during early training. Built and shipped as a standalone Meta Quest 2 app, it runs entirely on-headset with no PC tether, which meant aggressively profiling and optimizing scene poly-count, draw calls and shader complexity to hit the headset's mobile-GPU performance budget while keeping the simulation responsive enough to feel like the real machine. Interaction logic, machine-state simulation and the full training flow were written in C# against Unity's XR input pipeline.",
+    stat: "5-thread machine · standalone on Meta Quest 2",
+    stack: ["Unity 3D", "C#", "Meta Quest 2"],
+    architecture: {
+      stages: [
+        {
+          label: "Machine Research",
+          sub: "Studied the real 5-thread flatlock's mechanics & operator workflow",
+          domain: "systems",
+        },
+        {
+          label: "3D Modeling & Rigging",
+          sub: "Pedal, tensioners, fabric feed and stitch-loop mechanism built in Unity 3D",
+          domain: "systems",
+        },
+        {
+          label: "Interaction Logic",
+          sub: "C# scripts drive machine state against Unity's XR input pipeline",
+          domain: "systems",
+        },
+        {
+          label: "Standalone Optimization",
+          sub: "Poly-count, draw calls & shaders tuned for Quest 2's on-headset GPU budget",
+          domain: "security",
+        },
+        {
+          label: "VR Training Session",
+          sub: "Trainees operate the simulated machine hands-on via Quest 2 controllers",
+          domain: "fullstack",
+        },
+      ],
+      note: "Runs entirely on-headset — no PC tether — so trainees can practice the full operating sequence with zero risk to real machines or material.",
+    },
+  },
 ];
 
 export const projectFilters: ("All" | ProjectFilter)[] = [
@@ -255,4 +299,5 @@ export const projectFilters: ("All" | ProjectFilter)[] = [
   "Security",
   "Full-Stack",
   "Hardware",
+  "VR",
 ];

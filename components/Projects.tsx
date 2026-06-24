@@ -27,7 +27,7 @@ export default function Projects() {
       <SectionHeading
         kicker="// 02 — work"
         title="Featured Projects"
-        subtitle="Six projects spanning AI systems, security tooling, full-stack platforms and hardware. Click any card for the deep dive."
+        subtitle="Seven projects spanning AI systems, security tooling, full-stack platforms, hardware and an immersive VR trainer. Click any card for the deep dive."
       />
 
       {/* Filter tabs */}
