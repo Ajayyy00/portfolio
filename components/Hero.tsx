@@ -103,9 +103,6 @@ export default function Hero() {
             <span className="mono rounded-full border border-border bg-surface px-3.5 py-1.5 text-xs text-text">
               CGPA {site.cgpa} · {site.institution}
             </span>
-            <span className="mono inline-flex items-center gap-1.5 rounded-full border border-security/40 bg-security/10 px-3.5 py-1.5 text-xs font-medium text-security">
-              📄 Indian Patent · SARS · Apr 2025
-            </span>
           </motion.div>
 
           {/* CTAs */}
