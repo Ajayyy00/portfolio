@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0a0a0f;
+  --surface: #111117;
+  --border: #1e1e2e;
+  --text: #e4e4ed;
+  --muted: #6b6b80;
+  --ai: #3b82f6;
+  --fullstack: #10b981;
+  --security: #f59e0b;
+  --systems: #8b5cf6;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-inter), system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Honour reduced-motion: smooth scroll + custom cursor opt out */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  ::selection {
+    background-color: rgba(59, 130, 246, 0.3);
+    color: #fff;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #23233a;
+    border-radius: 9999px;
+    border: 2px solid var(--bg);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2e2e4a;
+  }
+}
+
+@layer components {
+  /* A faint dotted grid backdrop used behind the hero */
+  .grid-backdrop {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(228, 228, 237, 0.05) 1px,
+      transparent 0
+    );
+    background-size: 32px 32px;
+  }
+
+  .section-pad {
+    @apply mx-auto w-full max-w-6xl px-5 py-24 sm:px-8 sm:py-32;
+  }
+
+  .mono {
+    font-family: var(--font-mono), ui-monospace, monospace;
+  }
+
+  /* Skill-constellation orbit chip. Colours come from CSS vars set inline
+     (--accent / --accent-faint) so these :hover rules win without fighting
+     inline-style specificity. */
+  .orbit-chip {
+    color: #9a9ab0;
+    border-color: var(--accent-faint);
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+  }
+  .orbit-chip:hover,
+  .orbit-chip:focus-visible {
+    color: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 22px -4px var(--accent);
+    transform: scale(1.14);
+    outline: none;
+  }
+}
+
+/* Hide the native cursor only on devices that have a fine pointer (mouse).
+   Touch devices keep their default behaviour. */
+@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: none;
+  }
+}
