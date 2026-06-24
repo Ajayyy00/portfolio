@@ -16,7 +16,7 @@ export default function Achievements() {
       <SectionHeading
         kicker="// 05 — recognition"
         title="Hackathons"
-        subtitle="Finalist across national, industry and IIT-hosted competitions."
+        subtitle="The weekends I gave up sleep for — and made it to the finals."
         accent="#8B5CF6"
       />
 

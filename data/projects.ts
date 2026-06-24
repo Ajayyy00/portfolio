@@ -49,9 +49,9 @@ export const projects: Project[] = [
     domain: "ai",
     categories: ["AI"],
     description:
-      "Plain-English clinical questions → safe, validated SQL → charts & insights.",
+      "Ask a clinical question in plain English, get back safe SQL and a chart — no analyst required.",
     longDescription:
-      "A multi-agent RAG data analyst that turns natural-language clinical questions into HIPAA-compliant, read-only SQL. A LangGraph state machine orchestrates Plan → Generate → Validate → Optimize agents that self-correct failing queries before they ever touch the database. Every generated query is parsed into an AST with sqlglot and checked against a deterministic safety engine — no DDL/DML, no stacked queries, no tautologies — then executed under a hard-separated read-only Postgres role with Row-Level Security. Schema-aware retrieval runs on ChromaDB, a Neo4j knowledge graph maps clinical relationships, and Redis handles semantic caching. CodeLlama-7B was fine-tuned with QLoRA (4-bit NF4) to reach ≥80% execution accuracy on the Spider benchmark, with full request tracing via OpenTelemetry, Prometheus, Grafana and Jaeger.",
+      "I wanted to let clinicians ask questions like \"which wards had the highest readmission rate last quarter\" and get a real answer, without anyone hand-writing SQL or risking a query that touches the wrong table. So I built a pipeline of agents — one plans the query, one writes it, one validates it, one optimizes it — wired together with LangGraph so a failing query loops back and gets fixed automatically instead of just erroring out. The part I cared about most was safety: every generated query gets parsed into an AST and run through a rule engine that blocks anything that isn't a plain read — no writes, no stacked statements, nothing clever — and then it executes under a Postgres role that's locked to read-only with row-level security as a second layer. For retrieval I lean on ChromaDB for schema context and a Neo4j graph for how clinical concepts relate to each other, with Redis caching repeat questions. I also fine-tuned CodeLlama-7B with QLoRA so it could hit 80%+ accuracy on the Spider benchmark, and wired up OpenTelemetry/Prometheus/Grafana so I could actually see what the system was doing in production, not just trust it.",
     stat: "Self-correcting multi-agent SQL",
     stack: [
       "FastAPI",
@@ -95,9 +95,9 @@ export const projects: Project[] = [
     accent: "ai",
     categories: ["AI", "Security"],
     description:
-      "RL training environment simulating a 500-node enterprise network under attack.",
+      "A 500-node enterprise network under attack, built so AI agents can practice being a SOC analyst.",
     longDescription:
-      "A deterministic reinforcement-learning environment built on Meta's OpenEnv framework for benchmarking autonomous incident-response agents. It simulates a 500-node enterprise network across six subnets under live multi-stage attacks spanning 12 threat categories. Agents act through six structured Pydantic-typed actions (query, forensics, kill process, block IOC, isolate segment, submit plan) and receive dense reward shaping that rewards containment while penalising collateral downtime — modelling real business impact, not just CTF points. A 5-rubric grading engine (40% containment, 20% IOC, 15% forensics, 15% downtime, 10% plan quality) scores each episode 0–1. SHA-256-seeded procedural generation yields 1000+ unique, fully reproducible scenarios. Finalist at the Meta PyTorch OpenEnv Hackathon 2026.",
+      "I built this for the Meta PyTorch OpenEnv Hackathon as a way to actually benchmark how good an AI agent is at incident response, instead of just at CTF puzzles. It's a deterministic simulation of a 500-node network spread across six subnets, getting hit with live multi-stage attacks across 12 different threat categories. An agent gets six real moves — query logs, run forensics, kill a process, block an indicator of compromise, isolate a segment, or submit a containment plan — and I shaped the reward so it actually reflects business impact: containing a breach is good, but taking down half the network to do it isn't free, so that costs you too. Every episode gets graded across five things — containment, IOC accuracy, forensics quality, downtime caused, and plan quality — and I seed scenario generation off SHA-256 hashes so I can reproduce any of the 1000+ scenarios exactly if something looks off.",
     stat: "1000+ unique scenarios · 5-rubric scoring",
     stack: ["Python", "Meta OpenEnv", "Pydantic", "Docker", "WebSocket", "REST API"],
     architecture: {
@@ -125,9 +125,9 @@ export const projects: Project[] = [
     domain: "security",
     categories: ["Security"],
     description:
-      "Real-time phishing detection Chrome extension — tri-modal ML analysis.",
+      "A Chrome extension that catches phishing sites before the page even loads.",
     longDescription:
-      "A Manifest V3 Chrome extension that blocks phishing before the page ever loads. It intercepts every main-frame navigation via webNavigation.onBeforeNavigate and runs three parallel ML detectors: a LightGBM classifier over 22 engineered URL features (<2ms inference), a fine-tuned MiniLM transformer on visible page text, and DOM-template similarity matching against known brand fingerprints. A weighted risk score drives a pre-navigation block + warning page, and SHAP values explain exactly why every site was flagged. Privacy-first by design — analysis runs against a local backend, so no browsing data ever leaves the machine.",
+      "Most phishing blockers warn you after the page has already loaded, which felt too late, so I built this to intercept the navigation before the browser even renders anything. It runs three detectors in parallel: a LightGBM model over 22 URL features that scores a link in under 2ms, a fine-tuned MiniLM model reading the actual page text, and a DOM-similarity check against known brand layouts (for the sites that clone a real login page pixel-for-pixel). Whichever combination trips the risk score, the user gets a warning page before the real one ever loads, plus a SHAP breakdown of why it got flagged — I wanted people to be able to actually check my work, not just trust a black box. Everything runs against a local backend, so no browsing data leaves the machine, which mattered to me as much as the detection accuracy did.",
     stat: "Tri-modal ML · Zero cloud telemetry",
     stack: ["Chrome Extension MV3", "LightGBM", "MiniLM", "SHAP", "Python", "Flask"],
     architecture: {
@@ -155,9 +155,9 @@ export const projects: Project[] = [
     accent: "ai",
     categories: ["AI", "Hardware"],
     description:
-      "AI debug triage for UVM/SVA hardware simulation logs — hours to seconds.",
+      "Turns a 50,000-line hardware verification log into a ranked, explained list of what to debug first.",
     longDescription:
-      "An AI debug-prioritisation pipeline for hardware verification. It ingests 10K–50K UVM/SVA simulation log lines, embeds them with MiniLM into a 391-dim hybrid space (semantics + severity + tag), then clusters similar failures with UMAP + HDBSCAN. A topological root-cause DAG built from temporal transitions separates true root causes from cascading symptoms, and a fully explainable (XAI) priority formula ranks every cluster with its complete mathematical derivation shown. Signature 'Failure DNA' fingerprints, cross-project fix memory, and Gemini-generated insight cards round it out. Built for the Sandisk / Western Digital Hackathon 2026.",
+      "I built this at the Sandisk / Western Digital hackathon after hearing how much time hardware verification engineers lose just reading through UVM/SVA simulation logs to figure out which failure is the real root cause and which ones are just downstream noise. The pipeline embeds every log line into a vector space that captures meaning, severity, and tag together, clusters the similar failures, and then builds a kind of failure timeline to work out which cluster actually caused the others — instead of just listing every failure as equally urgent. Every ranking comes with the full math behind it shown on screen, because I didn't want engineers to have to take the score on faith. It also fingerprints failures so it can recognize \"oh, we've seen this exact bug shape before\" across projects, and uses Gemini to write a plain-English summary of each cluster so you don't have to read the raw logs just to know where to start.",
     stat: "10K log lines triaged in <30s",
     stack: [
       "Python",
@@ -188,9 +188,9 @@ export const projects: Project[] = [
     domain: "fullstack",
     categories: ["Full-Stack"],
     description:
-      "Multi-role logistics platform with real-time tracking, fleet management & billing.",
+      "A logistics platform with separate portals for admins, drivers, agents and customers — tracking, billing, the whole pipeline.",
     longDescription:
-      "A full-stack logistics platform with four role-based portals — Admin, Driver, Agent and Customer. It handles hub-based delivery allocation, vehicle/driver scheduling and route optimisation, with real-time shipment tracking and proof-of-delivery. Automated Twilio SMS and EmailJS notifications keep customers informed at every status change, and a complete billing/invoicing module generates reports with XLSX and PDF export. Built on a React 18 + Vite frontend with Chart.js/Recharts analytics, backed by an Express API over MSSQL and MySQL with Firebase integration.",
+      "This one came out of trying to model how a real delivery company actually operates day to day, not just a toy CRUD app. There are four separate portals — admin, driver, delivery agent, and customer — because each of those people needs to see something completely different: the admin needs hub-level allocation and route planning, the driver just needs their next stop and a way to confirm delivery, and the customer just wants to know where their package is. Under the hood it routes orders through hub-based allocation, tracks shipments in real time, and fires off Twilio SMS and email updates automatically so nobody has to manually tell a customer their order shipped. I also built out a full billing module with invoice generation and XLSX/PDF export, since a logistics platform without proper billing isn't really finished. It's a React 18 + Vite frontend talking to an Express API across MSSQL, MySQL and Firebase.",
     stat: "4 role portals · Twilio SMS + email",
     stack: [
       "React 18",
@@ -228,9 +228,9 @@ export const projects: Project[] = [
     accent: "security",
     categories: ["AI", "Security"],
     description:
-      "Browser-based face auth with CNN liveness detection, built for UIDAI / Aadhaar.",
+      "Face authentication that runs entirely in the browser, built to UIDAI/Aadhaar spec for Smart India Hackathon.",
     longDescription:
-      "A browser-based, real-time face authentication system designed to spec for UIDAI / Aadhaar integration (Smart India Hackathon 2024). A CNN maps 68 facial landmarks into 128-D embeddings and matches them fully on-device against the registered Aadhaar face — biometrics never leave the browser. Blink and head-movement liveness checks defeat photo and video spoofing, while the ML model itself is hardened with AES-256-CBC encryption at rest, code obfuscation and Sub-Resource Integrity to block reverse engineering — the core of the problem statement. Models load from Azure and cache in the browser for fast, repeat authentication.",
+      "The brief for Smart India Hackathon was to build face authentication against Aadhaar that a government system could actually trust, and the hard part turned out not to be the face matching — it was proving the model itself couldn't be tampered with. The matching side maps 68 facial landmarks into a 128-dimension embedding and compares it on-device against the registered Aadhaar face, so the biometric data never has to leave the browser. To stop someone just holding up a photo, it checks for blinking and head movement before it'll even attempt a match. But the part the judges actually cared about was hardening the model itself — I encrypted it at rest with AES-256, obfuscated the code, and added Sub-Resource Integrity checks so the model can't be silently swapped or reverse-engineered, since that was the core security requirement of the problem statement, not an afterthought.",
     stat: "128-D embeddings · on-device matching",
     stack: ["React", "face-api.js", "TensorFlow.js", "Azure", "AES-256", "Firebase"],
     architecture: {
@@ -255,41 +255,11 @@ export const projects: Project[] = [
     accent: "fullstack",
     categories: ["VR", "Hardware"],
     description:
-      "Standalone VR simulation of a 5-thread flatlock machine for hands-on industrial training.",
+      "A VR simulation of an industrial sewing machine, so trainees can practice before touching the real one.",
     longDescription:
-      "A virtual-reality training simulator built for PSG's Software Development Cell that recreates a real 5-thread flatlock sewing machine — the kind used on industrial garment lines — inside a fully interactive Unity 3D scene. Every operator-facing mechanism (the pedal, thread tensioners, fabric feed and the looping motion of the 5-thread stitch) was modelled and rigged so trainees can practice the actual sequence of operating the machine in VR before ever touching the physical one, removing the risk of injury, fabric waste and machine damage during early training. Built and shipped as a standalone Meta Quest 2 app, it runs entirely on-headset with no PC tether, which meant aggressively profiling and optimizing scene poly-count, draw calls and shader complexity to hit the headset's mobile-GPU performance budget while keeping the simulation responsive enough to feel like the real machine. Interaction logic, machine-state simulation and the full training flow were written in C# against Unity's XR input pipeline.",
+      "PSG's Software Development Cell wanted a way for trainees to learn a real 5-thread flatlock sewing machine — the kind used on industrial garment lines — without the risk of an early mistake wasting fabric or damaging an expensive machine. I rebuilt the whole thing in Unity: the foot pedal, the thread tensioners, the fabric feed, and the looping motion of the 5-thread stitch itself, all rigged so someone can actually practice the real operating sequence in VR first. The tricky part was that it had to run standalone on a Meta Quest 2 with no PC tether, so I spent a lot of time trimming poly-count, draw calls and shader complexity down to fit the headset's GPU budget without it feeling sluggish or unlike the real machine. All the interaction logic and machine-state simulation is C#, built against Unity's XR input pipeline.",
     stat: "5-thread machine · standalone on Meta Quest 2",
     stack: ["Unity 3D", "C#", "Meta Quest 2"],
-    architecture: {
-      stages: [
-        {
-          label: "Machine Research",
-          sub: "Studied the real 5-thread flatlock's mechanics & operator workflow",
-          domain: "systems",
-        },
-        {
-          label: "3D Modeling & Rigging",
-          sub: "Pedal, tensioners, fabric feed and stitch-loop mechanism built in Unity 3D",
-          domain: "systems",
-        },
-        {
-          label: "Interaction Logic",
-          sub: "C# scripts drive machine state against Unity's XR input pipeline",
-          domain: "systems",
-        },
-        {
-          label: "Standalone Optimization",
-          sub: "Poly-count, draw calls & shaders tuned for Quest 2's on-headset GPU budget",
-          domain: "security",
-        },
-        {
-          label: "VR Training Session",
-          sub: "Trainees operate the simulated machine hands-on via Quest 2 controllers",
-          domain: "fullstack",
-        },
-      ],
-      note: "Runs entirely on-headset — no PC tether — so trainees can practice the full operating sequence with zero risk to real machines or material.",
-    },
   },
 ];
 

@@ -4,15 +4,16 @@ import { forwardRef } from "react";
 import { motion } from "framer-motion";
 import type { Project } from "@/data/projects";
 import { DOMAINS } from "@/lib/domains";
-import { scaleIn } from "@/lib/animations";
+import { EASE_OUT } from "@/lib/animations";
 
 interface Props {
   project: Project;
+  index: number;
   onExpand: (p: Project) => void;
 }
 
 const ProjectCard = forwardRef<HTMLElement, Props>(function ProjectCard(
-  { project, onExpand },
+  { project, index, onExpand },
   ref,
 ) {
   const accent = DOMAINS[project.domain];
@@ -21,14 +22,21 @@ const ProjectCard = forwardRef<HTMLElement, Props>(function ProjectCard(
     <motion.article
       ref={ref}
       layout
-      variants={scaleIn}
+      initial={{ opacity: 0, scale: 0.92, y: 20 }}
+      animate={{
+        opacity: 1,
+        scale: 1,
+        y: 0,
+        transition: { duration: 0.5, ease: EASE_OUT, delay: index * 0.06 },
+      }}
+      exit={{ opacity: 0, scale: 0.92, y: 20, transition: { duration: 0.3 } }}
       onClick={() => onExpand(project)}
       whileHover={{
         y: -8,
         scale: 1.02,
         boxShadow: `0 20px 50px -16px rgba(${accent.rgb}, 0.45)`,
+        transition: { type: "spring", stiffness: 280, damping: 24 },
       }}
-      transition={{ type: "spring", stiffness: 280, damping: 24 }}
       className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-surface/60"
       data-cursor="hover"
     >

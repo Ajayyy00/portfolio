@@ -10,7 +10,7 @@ export default function Patent() {
       <SectionHeading
         kicker="// 04 — patent"
         title="Published Patents"
-        subtitle="Intellectual property from my work in assistive technology."
+        subtitle="One I filed after building assistive tech I actually wanted to exist."
         accent="#F59E0B"
       />
       <motion.div
@@ -41,11 +41,11 @@ export default function Patent() {
           </h3>
 
           <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-text-muted">
-            An assistive examination device for students with learning
-            disabilities (dyslexia, dysgraphia, dyscalculia) — integrating
-            scribble-to-text, voice-to-text, text-to-speech and write-to-math to
-            enable independent participation in standardized tests, replacing the
-            need for a human scribe.
+            Students with dyslexia, dysgraphia or dyscalculia usually need a
+            human scribe to sit exams. I built a device that reads handwriting,
+            voice and math notation directly, so a student can write, speak or
+            sketch an answer and take the exam on their own terms — no scribe
+            required.
           </p>
 
           <div className="mono mt-5 flex flex-wrap gap-2">

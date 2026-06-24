@@ -9,13 +9,13 @@ export const site = {
   linkedin: "https://www.linkedin.com/in/ajay-c-18689b290/",
   resume: "/Ajay-C-Resume.pdf",
   description:
-    "Aspiring Software Developer building RAG pipelines, RL environments, and production-grade web platforms. CGPA 8.17 at PSG Tech, Indian patent holder, multi-hackathon finalist.",
+    "I'm a final-year CS student at PSG Tech who likes building things that actually have to work — RAG pipelines, RL environments, browser extensions, whatever the problem needs. Along the way I picked up an Indian patent and a few hackathon finals.",
 } as const;
 
 /** Terminal subtitle lines that type & cycle in the hero. */
 export const heroTypewriter = [
   "I build RAG pipelines that answer clinical questions",
-  "I train RL agents on 500-node cyber environments",
-  "I ship Chrome extensions that block phishing attacks",
-  "I fine-tune LLMs on domain-specific benchmarks",
+  "I train RL agents to fight off cyberattacks on a 500-node network",
+  "I ship Chrome extensions that catch phishing before you click",
+  "I fine-tune LLMs so they stop making things up",
 ];

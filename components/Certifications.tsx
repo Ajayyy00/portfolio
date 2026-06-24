@@ -15,7 +15,7 @@ export default function Certifications() {
       <SectionHeading
         kicker="// 06 — credentials"
         title="Certifications"
-        subtitle="Verified coursework and cloud credentials."
+        subtitle="Courses I actually finished, not just started and bookmarked."
         accent="#10B981"
       />
 

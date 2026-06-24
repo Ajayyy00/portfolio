@@ -12,7 +12,7 @@ export default function Skills() {
       <SectionHeading
         kicker="// 01 — stack"
         title="Skills & Tooling"
-        subtitle="The technologies I reach for across AI, full-stack, infrastructure and security work."
+        subtitle="What I actually reach for when I'm building — not just a list of buzzwords from a job description."
       />
 
       <motion.div

@@ -61,8 +61,8 @@ export default function Contact() {
           variants={fadeUp}
           className="mt-4 max-w-md text-base text-text-muted"
         >
-          Open to software development internships and roles. The fastest way
-          to reach me is email — or connect on the platforms below.
+          I&rsquo;m looking for software development internships and roles.
+          Email&rsquo;s the fastest way to reach me — or just say hi below.
         </motion.p>
 
         <motion.div variants={fadeUp} className="mt-9 flex flex-wrap items-center justify-center gap-3">

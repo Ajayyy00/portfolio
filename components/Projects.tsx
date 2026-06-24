@@ -11,7 +11,6 @@ import {
   type Project,
   type ProjectFilter,
 } from "@/data/projects";
-import { staggerContainer, VIEWPORT } from "@/lib/animations";
 
 export default function Projects() {
   const [filter, setFilter] = useState<"All" | ProjectFilter>("All");
@@ -27,7 +26,7 @@ export default function Projects() {
       <SectionHeading
         kicker="// 02 — work"
         title="Featured Projects"
-        subtitle="Seven projects spanning AI systems, security tooling, full-stack platforms, hardware and an immersive VR trainer. Click any card for the deep dive."
+        subtitle="Seven things I've built — AI systems, security tooling, full-stack platforms, even a VR trainer. Click a card if you want the full story."
       />
 
       {/* Filter tabs */}
@@ -60,15 +59,16 @@ export default function Projects() {
       {/* Grid */}
       <motion.div
         layout
-        initial="hidden"
-        whileInView="show"
-        viewport={VIEWPORT}
-        variants={staggerContainer(0.1)}
         className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
       >
         <AnimatePresence mode="popLayout">
-          {filtered.map((project) => (
-            <ProjectCard key={project.id} project={project} onExpand={setOpen} />
+          {filtered.map((project, index) => (
+            <ProjectCard
+              key={project.id}
+              project={project}
+              index={index}
+              onExpand={setOpen}
+            />
           ))}
         </AnimatePresence>
       </motion.div>

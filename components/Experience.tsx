@@ -13,7 +13,7 @@ export default function Experience() {
       <SectionHeading
         kicker="// 03 — journey"
         title="Experience"
-        subtitle="From cross-platform ad-intelligence ML to campus-wide internal tooling."
+        subtitle="What I've actually been paid (or asked) to build, in order."
         accent="#10B981"
       />
       <Timeline />

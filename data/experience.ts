@@ -36,7 +36,7 @@ export const experience: ExperienceEntry[] = [
     period: "May 2024 – Present",
     meta: "PSG Institute of Technology and Applied Research",
     bullets: [
-      "Built and shipped internal PHP/MySQL web apps used across the PSG campus, replacing paper-based processes for students and faculty.",
+      "Spent two years building the internal apps PSG's campus actually runs on — replacing paper forms with PHP/MySQL tools students and faculty use every day.",
     ],
     contributions: [
       {
