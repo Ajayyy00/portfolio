@@ -61,11 +61,14 @@ export default function Scene3DBackground() {
   if (!enabled) return null;
 
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
+    <div
+      aria-hidden
+      className="pointer-events-none fixed inset-0 -z-10 hidden sm:block"
+    >
       <Canvas
         camera={{ position: [0, 0, 5], fov: 45 }}
-        dpr={[1, 1.25]}
-        gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
+        dpr={[1, 1.5]}
+        gl={{ antialias: true, alpha: true }}
       >
         <WireframeIcosahedron targetColor={targetColor} />
       </Canvas>
