@@ -11,7 +11,6 @@ export default function Experience() {
       className="section-pad scroll-mt-24"
     >
       <SectionHeading
-        kicker="// 03 — journey"
         title="Experience"
         subtitle="What I've actually been paid (or asked) to build, in order."
         accent="#10B981"

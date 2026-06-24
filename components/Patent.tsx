@@ -8,7 +8,6 @@ export default function Patent() {
   return (
     <section id="patent" data-domain="security" className="section-pad scroll-mt-24">
       <SectionHeading
-        kicker="// 04 — patent"
         title="Published Patents"
         subtitle="One I filed after building assistive tech I actually wanted to exist."
         accent="#F59E0B"

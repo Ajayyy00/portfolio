@@ -43,13 +43,6 @@ export default function Contact() {
         variants={staggerContainer(0.12)}
         className="mx-auto flex max-w-3xl flex-col items-center px-5 py-28 text-center sm:py-36"
       >
-        <motion.p
-          variants={fadeUp}
-          className="mono text-xs font-medium uppercase tracking-[0.2em] text-ai"
-        >
-          {"// 07 — contact"}
-        </motion.p>
-
         <motion.h2
           variants={fadeUp}
           className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-5xl"

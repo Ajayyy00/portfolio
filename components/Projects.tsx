@@ -24,7 +24,6 @@ export default function Projects() {
   return (
     <section id="projects" data-domain="ai" className="section-pad scroll-mt-24">
       <SectionHeading
-        kicker="// 02 — work"
         title="Featured Projects"
         subtitle="Seven things I've built — AI systems, security tooling, full-stack platforms, even a VR trainer. Click a card if you want the full story."
       />

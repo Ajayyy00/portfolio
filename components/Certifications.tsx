@@ -13,7 +13,6 @@ export default function Certifications() {
       className="section-pad scroll-mt-24"
     >
       <SectionHeading
-        kicker="// 06 — credentials"
         title="Certifications"
         subtitle="Courses I actually finished, not just started and bookmarked."
         accent="#10B981"

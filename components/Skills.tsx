@@ -10,7 +10,6 @@ export default function Skills() {
   return (
     <section id="skills" data-domain="ai" className="section-pad scroll-mt-24">
       <SectionHeading
-        kicker="// 01 — stack"
         title="Skills & Tooling"
         subtitle="What I actually reach for when I'm building — not just a list of buzzwords from a job description."
       />
