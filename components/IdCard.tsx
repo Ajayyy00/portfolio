@@ -93,31 +93,12 @@ export default function IdCard() {
               </div>
             </dl>
 
-            {/* barcode — click to download the résumé */}
-            <a
-              href={site.resume}
-              download
-              draggable={false}
-              title="Download résumé"
-              className="mt-6 flex h-8 items-stretch gap-[3px] opacity-60 transition-opacity duration-200 hover:opacity-100"
-            >
-              {BARS.map((w, i) => (
-                <span
-                  key={i}
-                  className="bg-text"
-                  style={{ width: `${w}px` }}
-                />
-              ))}
-              <span className="mono ml-3 self-end text-[9px] tracking-[0.3em] text-text-muted">
-                RÉSUMÉ.PDF ↓
-              </span>
-            </a>
           </div>
         </div>
       </motion.div>
 
       <p className="mono mt-5 text-[10px] uppercase tracking-[0.25em] text-text-muted/70">
-        grab the badge · barcode = résumé
+        ↔ grab the badge
       </p>
     </div>
   );

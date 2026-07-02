@@ -99,8 +99,8 @@ export default function Certifications() {
     >
       <SectionHeading
         index="07"
+        kicker={`${String(certifications.length).padStart(2, "0")} credentials · verified`}
         title="Certifications"
-        subtitle="Courses I actually finished, not just started and bookmarked."
         accent="#A9C39B"
       />
 

@@ -2,6 +2,7 @@
 
 import SectionHeading from "./SectionHeading";
 import Timeline from "./Timeline";
+import { experience } from "@/data/experience";
 
 export default function Experience() {
   return (
@@ -12,8 +13,8 @@ export default function Experience() {
     >
       <SectionHeading
         index="04"
+        kicker={`${String(experience.length).padStart(2, "0")} roles · in order`}
         title="Experience"
-        subtitle="What I've actually been paid (or asked) to build, in order."
         accent="#A9C39B"
       />
       <Timeline />

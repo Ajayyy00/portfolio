@@ -11,6 +11,7 @@ export default function Skills() {
     <section id="skills" data-domain="ai" className="section-pad scroll-mt-24">
       <SectionHeading
         index="02"
+        kicker={`${skillGroups.length} domains`}
         title="Skills & Tooling"
       />
 

@@ -21,8 +21,8 @@ export default function Projects() {
       <div className="section-pad pb-0 sm:pb-0">
         <SectionHeading
           index="03"
+          kicker={`${String(projects.length).padStart(2, "0")} builds · click a card`}
           title="Featured Projects"
-          subtitle="Seven things I've built — each card stacks as you scroll. Click one for the architecture and the full story."
         />
       </div>
 

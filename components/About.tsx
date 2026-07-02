@@ -53,7 +53,7 @@ export default function About() {
 
       <p
         ref={ref}
-        className="display mt-10 max-w-4xl text-2xl font-medium leading-snug tracking-tight text-text sm:text-4xl sm:leading-snug"
+        className="display mt-10 max-w-3xl text-xl font-medium leading-relaxed tracking-tight text-text sm:text-2xl md:text-3xl md:leading-snug"
       >
         {words.map((word, i) => (
           <Word

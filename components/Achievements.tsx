@@ -107,11 +107,13 @@ export default function Achievements() {
   }, []);
 
   const { scrollYProgress } = useScroll({ target: ref });
-  const x = useTransform(
+  const rawX = useTransform(
     scrollYProgress,
     [0.12, 0.9],
     [0, reduced ? 0 : -travel],
   );
+  /* spring smooths the wheel-step jumps into a glide */
+  const x = useSpring(rawX, { stiffness: 90, damping: 26, mass: 0.5 });
   const rideProgress = useSpring(
     useTransform(scrollYProgress, [0.12, 0.9], [0, 1]),
     { stiffness: 120, damping: 30 },
@@ -126,8 +128,8 @@ export default function Achievements() {
             <div className="flex flex-wrap items-end justify-between gap-6">
               <SectionHeading
                 index="06"
+                kicker={`${String(achievements.length).padStart(2, "0")} finals · scroll to ride`}
                 title="Hackathons"
-                subtitle="The weekends I gave up sleep for — and made it to the finals."
                 accent="#BCA7DA"
               />
               {/* ride progress */}
@@ -167,8 +169,8 @@ export default function Achievements() {
       <div className="section-pad md:hidden">
         <SectionHeading
           index="06"
+          kicker={`${String(achievements.length).padStart(2, "0")} finals · swipe`}
           title="Hackathons"
-          subtitle="The weekends I gave up sleep for — and made it to the finals."
           accent="#BCA7DA"
         />
         <motion.div

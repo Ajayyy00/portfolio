@@ -9,8 +9,8 @@ export default function Patent() {
     <section id="patent" data-domain="security" className="section-pad scroll-mt-24">
       <SectionHeading
         index="05"
+        kicker="indian patent office · 2025"
         title="Published Patents"
-        subtitle="One I filed after building assistive tech I actually wanted to exist."
         accent="#E4C57E"
       />
       <motion.div
