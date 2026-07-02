@@ -22,7 +22,7 @@ export default function CountUp({
   className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-10% 0px" });
+  const inView = useInView(ref, { once: true });
   const mv = useMotionValue(0);
   const text = useTransform(mv, (v) => v.toFixed(decimals));
 

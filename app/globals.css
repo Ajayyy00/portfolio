@@ -17,7 +17,6 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
@@ -32,9 +31,6 @@
 
   /* Honour reduced-motion */
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
     .animate-drift1,
     .animate-drift2,
     .animate-drift3 {
