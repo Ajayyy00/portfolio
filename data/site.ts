@@ -9,7 +9,7 @@ export const site = {
   linkedin: "https://www.linkedin.com/in/ajay-c-18689b290/",
   resume: "/Ajay-C-Resume.pdf",
   description:
-    "I'm a final-year CS student at PSG Tech who likes building things that actually have to work — RAG pipelines, RL environments, browser extensions, whatever the problem needs. Along the way I picked up an Indian patent and a few hackathon finals.",
+    "Aspiring software developer with hands-on experience in building impactful, user-focused applications that streamline institutional operations. Passionate about combining full-stack development with emerging technologies like AI and cloud platforms to create scalable, real-world solutions. Seeking opportunities to contribute to innovative teams and continue growing in a dynamic tech environment.",
 } as const;
 
 /** Terminal subtitle lines that type & cycle in the hero. */

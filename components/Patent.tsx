@@ -8,22 +8,27 @@ export default function Patent() {
   return (
     <section id="patent" data-domain="security" className="section-pad scroll-mt-24">
       <SectionHeading
+        index="05"
         title="Published Patents"
         subtitle="One I filed after building assistive tech I actually wanted to exist."
-        accent="#F59E0B"
+        accent="#E4C57E"
       />
       <motion.div
         initial="hidden"
         whileInView="show"
         viewport={VIEWPORT}
         variants={slideInLeft}
-        className="relative mt-12 overflow-hidden rounded-2xl border border-border bg-surface"
+        className="relative mt-12 overflow-hidden rounded-3xl border border-border bg-surface shadow-card"
       >
-        {/* gold left border + glow */}
-        <div className="absolute inset-y-0 left-0 w-2 bg-gradient-to-b from-security to-[#fbbf24]" />
+        {/* honey left border + glow */}
+        <div className="absolute inset-y-0 left-0 w-2 bg-gradient-to-b from-security to-ai" />
         <div
           aria-hidden
-          className="pointer-events-none absolute -left-10 top-1/2 h-56 w-56 -translate-y-1/2 rounded-full bg-security/20 blur-[90px]"
+          className="pointer-events-none absolute -left-16 top-1/2 h-[22rem] w-[22rem] -translate-y-1/2"
+          style={{
+            background:
+              "radial-gradient(closest-side, rgba(228, 197, 126, 0.13), transparent 72%)",
+          }}
         />
 
         <div className="relative p-7 pl-10 sm:p-10 sm:pl-14">
@@ -35,7 +40,7 @@ export default function Patent() {
             <span className="text-text-muted">· No. 202341032601</span>
           </div>
 
-          <h3 className="mt-4 text-2xl font-bold text-white sm:text-3xl">
+          <h3 className="display mt-4 text-2xl font-semibold text-text sm:text-3xl">
             SARS — Self-Assisted Reading and Scribing System
           </h3>
 

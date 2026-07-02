@@ -49,7 +49,7 @@ export default function ProjectModal({ project, onClose }: Props) {
             role="dialog"
             aria-modal="true"
             aria-label={`${project.title} details`}
-            className="relative z-10 max-h-[88vh] w-full max-w-2xl overflow-y-auto rounded-t-2xl border border-border bg-surface sm:rounded-2xl"
+            className="relative z-10 max-h-[88vh] w-full max-w-2xl overflow-y-auto rounded-t-3xl border border-border bg-surface sm:rounded-3xl"
             initial={{ y: 40, opacity: 0, scale: 0.98 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
             exit={{ y: 30, opacity: 0, scale: 0.98 }}
@@ -57,7 +57,7 @@ export default function ProjectModal({ project, onClose }: Props) {
           >
             {/* accent bar */}
             <div
-              className="h-1.5 w-full rounded-t-2xl"
+              className="h-1 w-full rounded-t-3xl opacity-80"
               style={{
                 background: project.accent
                   ? `linear-gradient(90deg, ${DOMAINS[project.domain].hex}, ${DOMAINS[project.accent].hex})`
@@ -74,7 +74,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                   >
                     {project.tag}
                   </span>
-                  <h3 className="mt-1.5 text-2xl font-bold text-white">
+                  <h3 className="display mt-1.5 text-2xl font-semibold text-text sm:text-3xl">
                     {project.title}
                   </h3>
                 </div>
@@ -147,7 +147,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                       href={project.demo}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-lg bg-ai px-4 py-2 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+                      className="inline-flex items-center gap-2 rounded-full bg-ai px-5 py-2.5 text-sm font-semibold text-bg transition-transform hover:-translate-y-0.5"
                     >
                       Live Demo ↗
                     </a>
@@ -157,7 +157,7 @@ export default function ProjectModal({ project, onClose }: Props) {
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-semibold text-text transition-colors hover:border-text-muted"
+                      className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-semibold text-text transition-colors hover:border-text-muted"
                     >
                       GitHub ↗
                     </a>

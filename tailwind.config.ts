@@ -9,37 +9,57 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: "#0A0A0F",
-        surface: "#111117",
-        border: "#1E1E2E",
+        bg: "#171310",
+        surface: "#1F1A15",
+        raised: "#282119",
+        border: "#362D23",
         text: {
-          DEFAULT: "#E4E4ED",
-          muted: "#6B6B80",
+          DEFAULT: "#F0EAE0",
+          muted: "#A89C8C",
         },
-        // Domain-tagged accents
-        ai: "#3B82F6", // blue   → AI / primary
-        fullstack: "#10B981", // green  → Full-Stack / success
-        security: "#F59E0B", // amber  → Security / warning
-        systems: "#8B5CF6", // purple → Systems / hardware
+        // Domain-tagged accents (warm-tuned)
+        ai: "#E29D71", // copper → AI / primary
+        fullstack: "#A9C39B", // sage → Full-Stack
+        security: "#E4C57E", // honey → Security
+        systems: "#BCA7DA", // lavender → Systems / hardware
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "Georgia", "serif"],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       boxShadow: {
-        "glow-ai": "0 12px 40px -12px rgba(59, 130, 246, 0.45)",
-        "glow-fullstack": "0 12px 40px -12px rgba(16, 185, 129, 0.45)",
-        "glow-security": "0 12px 40px -12px rgba(245, 158, 11, 0.45)",
-        "glow-systems": "0 12px 40px -12px rgba(139, 92, 246, 0.45)",
+        "glow-ai": "0 12px 40px -12px rgba(226, 157, 113, 0.4)",
+        "glow-fullstack": "0 12px 40px -12px rgba(169, 195, 155, 0.4)",
+        "glow-security": "0 12px 40px -12px rgba(228, 197, 126, 0.4)",
+        "glow-systems": "0 12px 40px -12px rgba(188, 167, 218, 0.4)",
+        card: "0 1px 2px rgba(0,0,0,0.25), 0 8px 24px -12px rgba(0,0,0,0.5)",
+        "card-hover":
+          "0 2px 4px rgba(0,0,0,0.25), 0 24px 48px -16px rgba(0,0,0,0.55)",
       },
       keyframes: {
         blink: {
           "0%, 49%": { opacity: "1" },
           "50%, 100%": { opacity: "0" },
         },
+        drift1: {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
+          "50%": { transform: "translate(6vw, 4vh) scale(1.12)" },
+        },
+        drift2: {
+          "0%, 100%": { transform: "translate(0, 0) scale(1)" },
+          "50%": { transform: "translate(-5vw, -5vh) scale(1.08)" },
+        },
+        drift3: {
+          "0%, 100%": { transform: "translate(0, 0) scale(1.05)" },
+          "50%": { transform: "translate(4vw, -4vh) scale(0.95)" },
+        },
       },
       animation: {
         blink: "blink 1s steps(1) infinite",
+        drift1: "drift1 26s ease-in-out infinite",
+        drift2: "drift2 32s ease-in-out infinite",
+        drift3: "drift3 38s ease-in-out infinite",
       },
     },
   },

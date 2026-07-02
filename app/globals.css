@@ -3,15 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --bg: #0a0a0f;
-  --surface: #111117;
-  --border: #1e1e2e;
-  --text: #e4e4ed;
-  --muted: #6b6b80;
-  --ai: #3b82f6;
-  --fullstack: #10b981;
-  --security: #f59e0b;
-  --systems: #8b5cf6;
+  --bg: #171310;
+  --surface: #1f1a15;
+  --raised: #282119;
+  --border: #362d23;
+  --text: #f0eae0;
+  --muted: #a89c8c;
+  --ai: #e29d71;
+  --fullstack: #a9c39b;
+  --security: #e4c57e;
+  --systems: #bca7da;
 }
 
 @layer base {
@@ -24,20 +25,26 @@
   body {
     background-color: var(--bg);
     color: var(--text);
-    font-family: var(--font-inter), system-ui, sans-serif;
+    font-family: var(--font-sans), system-ui, sans-serif;
     overflow-x: hidden;
   }
 
-  /* Honour reduced-motion: smooth scroll + custom cursor opt out */
+
+  /* Honour reduced-motion */
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
     }
+    .animate-drift1,
+    .animate-drift2,
+    .animate-drift3 {
+      animation: none;
+    }
   }
 
   ::selection {
-    background-color: rgba(59, 130, 246, 0.3);
-    color: #fff;
+    background-color: rgba(226, 157, 113, 0.35);
+    color: #fff8f0;
   }
 
   /* Custom scrollbar */
@@ -49,12 +56,12 @@
     background: var(--bg);
   }
   ::-webkit-scrollbar-thumb {
-    background: #23233a;
+    background: #3d332a;
     border-radius: 9999px;
     border: 2px solid var(--bg);
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #2e2e4a;
+    background: #4d4034;
   }
 }
 
@@ -63,10 +70,10 @@
   .grid-backdrop {
     background-image: radial-gradient(
       circle at 1px 1px,
-      rgba(228, 228, 237, 0.05) 1px,
+      rgba(240, 234, 224, 0.045) 1px,
       transparent 0
     );
-    background-size: 32px 32px;
+    background-size: 34px 34px;
   }
 
   .section-pad {
@@ -77,11 +84,15 @@
     font-family: var(--font-mono), ui-monospace, monospace;
   }
 
+  .display {
+    font-family: var(--font-display), Georgia, serif;
+  }
+
   /* Skill-constellation orbit chip. Colours come from CSS vars set inline
      (--accent / --accent-faint) so these :hover rules win without fighting
      inline-style specificity. */
   .orbit-chip {
-    color: #9a9ab0;
+    color: #b3a695;
     border-color: var(--accent-faint);
     transition:
       color 0.2s ease,
@@ -97,13 +108,16 @@
     transform: scale(1.14);
     outline: none;
   }
-}
 
-/* Hide the native cursor only on devices that have a fine pointer (mouse).
-   Touch devices keep their default behaviour. */
-@media (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .custom-cursor-active,
-  .custom-cursor-active * {
-    cursor: none;
+  /* Warm link underline that draws itself in on hover */
+  .link-draw {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .link-draw:hover {
+    background-size: 100% 1px;
   }
 }

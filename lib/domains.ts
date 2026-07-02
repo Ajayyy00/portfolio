@@ -1,9 +1,10 @@
-/** Domain-tagged accent system shared across the whole site. */
+/** Domain-tagged accent system shared across the whole site.
+ *  Warm-tuned palette: copper / sage / honey / lavender on espresso. */
 
 export type Domain = "ai" | "fullstack" | "security" | "systems";
 
 export interface DomainStyle {
-  /** Raw hex — used for the custom cursor, inline glows, SVG strokes. */
+  /** Raw hex — used for inline glows, SVG strokes. */
   hex: string;
   /** rgb triplet (no wrapper) for building rgba() with arbitrary alpha. */
   rgb: string;
@@ -12,10 +13,10 @@ export interface DomainStyle {
 }
 
 export const DOMAINS: Record<Domain, DomainStyle> = {
-  ai: { hex: "#3B82F6", rgb: "59, 130, 246", label: "AI / ML" },
-  fullstack: { hex: "#10B981", rgb: "16, 185, 129", label: "Full-Stack" },
-  security: { hex: "#F59E0B", rgb: "245, 158, 11", label: "Security" },
-  systems: { hex: "#8B5CF6", rgb: "139, 92, 246", label: "Systems / Hardware" },
+  ai: { hex: "#E29D71", rgb: "226, 157, 113", label: "AI / ML" },
+  fullstack: { hex: "#A9C39B", rgb: "169, 195, 155", label: "Full-Stack" },
+  security: { hex: "#E4C57E", rgb: "228, 197, 126", label: "Security" },
+  systems: { hex: "#BCA7DA", rgb: "188, 167, 218", label: "Systems / Hardware" },
 };
 
 export const domainHex = (d: Domain) => DOMAINS[d].hex;

@@ -1,16 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { Figtree, Fraunces, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { site } from "@/data/site";
 import Navbar from "@/components/Navbar";
 import ScrollProgress from "@/components/ScrollProgress";
-import CustomCursor from "@/components/CustomCursor";
-import Scene3DBackground from "@/components/Scene3DBackgroundLoader";
+import AmbientBackground from "@/components/AmbientBackground";
 
-const inter = Inter({
+const figtree = Figtree({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-sans",
   display: "swap",
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+  axes: ["opsz", "SOFT", "WONK"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -54,7 +60,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0A0A0F",
+  themeColor: "#171310",
   width: "device-width",
   initialScale: 1,
 };
@@ -65,11 +71,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="custom-cursor-active bg-bg text-text antialiased">
-        <Scene3DBackground />
+    <html
+      lang="en"
+      className={`${figtree.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}
+    >
+      <body className="bg-bg text-text antialiased">
+        <AmbientBackground />
         <ScrollProgress />
-        <CustomCursor />
         <Navbar />
         <main>{children}</main>
       </body>

@@ -1,8 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { site } from "@/data/site";
 import { fadeUp, staggerContainer, VIEWPORT } from "@/lib/animations";
+import Magnetic from "./Magnetic";
 
 const ICONS: Record<string, React.ReactNode> = {
   email: (
@@ -23,15 +25,60 @@ const ICONS: Record<string, React.ReactNode> = {
   ),
 };
 
+function CopyEmail() {
+  const [copied, setCopied] = useState(false);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(site.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // clipboard unavailable — fall through silently
+    }
+  };
+
+  return (
+    <button
+      onClick={copy}
+      className="group relative mt-8 inline-flex items-center gap-3 rounded-full border border-ai/40 bg-ai/[0.06] px-7 py-4 transition-colors duration-300 hover:border-ai/70 hover:bg-ai/10"
+      aria-live="polite"
+    >
+      <span className="mono text-base text-text sm:text-lg">{site.email}</span>
+      <span className="relative grid h-6 w-14 place-items-center overflow-hidden rounded-full bg-ai/15 text-[10px] font-semibold uppercase tracking-wider text-ai">
+        <AnimatePresence mode="popLayout" initial={false}>
+          {copied ? (
+            <motion.span
+              key="copied"
+              initial={{ y: 14, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -14, opacity: 0 }}
+              transition={{ duration: 0.25 }}
+            >
+              ✓ done
+            </motion.span>
+          ) : (
+            <motion.span
+              key="copy"
+              initial={{ y: 14, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -14, opacity: 0 }}
+              transition={{ duration: 0.25 }}
+            >
+              copy
+            </motion.span>
+          )}
+        </AnimatePresence>
+      </span>
+    </button>
+  );
+}
+
 export default function Contact() {
   const links = [
-    { key: "email", label: site.email, href: `mailto:${site.email}` },
-    { key: "github", label: "github.com/Ajayyy00", href: site.github },
-    {
-      key: "linkedin",
-      label: "linkedin.com/in/ajay-c",
-      href: site.linkedin,
-    },
+    { key: "email", label: "Email", href: `mailto:${site.email}` },
+    { key: "github", label: "GitHub", href: site.github },
+    { key: "linkedin", label: "LinkedIn", href: site.linkedin },
   ];
 
   return (
@@ -41,13 +88,14 @@ export default function Contact() {
         whileInView="show"
         viewport={VIEWPORT}
         variants={staggerContainer(0.12)}
-        className="mx-auto flex max-w-3xl flex-col items-center px-5 py-28 text-center sm:py-36"
+        className="mx-auto flex max-w-5xl flex-col items-center px-5 py-28 text-center sm:py-40"
       >
         <motion.h2
           variants={fadeUp}
-          className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-5xl"
+          className="display mt-4 text-[clamp(2.6rem,7.5vw,6.5rem)] font-semibold leading-[1.02] tracking-tight text-text"
         >
-          Let&rsquo;s build something.
+          Let&rsquo;s build{" "}
+          <em className="text-ai">something</em>.
         </motion.h2>
 
         <motion.p
@@ -55,23 +103,32 @@ export default function Contact() {
           className="mt-4 max-w-md text-base text-text-muted"
         >
           I&rsquo;m looking for software development internships and roles.
-          Email&rsquo;s the fastest way to reach me — or just say hi below.
+          Email&rsquo;s the fastest way to reach me — copy it below, or just
+          say hi.
         </motion.p>
 
-        <motion.div variants={fadeUp} className="mt-9 flex flex-wrap items-center justify-center gap-3">
+        <motion.div variants={fadeUp}>
+          <CopyEmail />
+        </motion.div>
+
+        <motion.div
+          variants={fadeUp}
+          className="mt-8 flex flex-wrap items-center justify-center gap-3"
+        >
           {links.map((l) => (
-            <a
-              key={l.key}
-              href={l.href}
-              target={l.key === "email" ? undefined : "_blank"}
-              rel={l.key === "email" ? undefined : "noopener noreferrer"}
-              className="group inline-flex items-center gap-2.5 rounded-full border border-border bg-surface/60 px-5 py-3 text-sm text-text transition-all duration-200 hover:-translate-y-0.5 hover:border-ai/60 hover:text-ai"
-            >
-              <span className="text-text-muted transition-colors group-hover:text-ai">
-                {ICONS[l.key]}
-              </span>
-              <span className="mono">{l.label}</span>
-            </a>
+            <Magnetic key={l.key} strength={0.3}>
+              <a
+                href={l.href}
+                target={l.key === "email" ? undefined : "_blank"}
+                rel={l.key === "email" ? undefined : "noopener noreferrer"}
+                className="group inline-flex items-center gap-2.5 rounded-full border border-border bg-surface/70 px-5 py-3 text-sm text-text shadow-card transition-colors duration-300 hover:border-ai/50 hover:text-ai"
+              >
+                <span className="text-text-muted transition-colors group-hover:text-ai">
+                  {ICONS[l.key]}
+                </span>
+                {l.label}
+              </a>
+            </Magnetic>
           ))}
         </motion.div>
 

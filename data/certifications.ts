@@ -18,20 +18,20 @@ export const certifications: Certification[] = [
     issuer: "IIT Madras",
     date: "2025",
     badge: "IITM",
-    color: "#10B981",
+    color: "#A9C39B",
   },
   {
     name: "Data Structures & Algorithms using Java",
     issuer: "NPTEL · Top 5% Rank",
     date: "2025",
     badge: "NPTEL",
-    color: "#3B82F6",
+    color: "#E29D71",
   },
   {
     name: "Oracle Cloud Infrastructure 2025 Foundations Associate",
     issuer: "Oracle",
     date: "2025",
     badge: "OCI",
-    color: "#F59E0B",
+    color: "#E4C57E",
   },
 ];

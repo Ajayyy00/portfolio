@@ -1,10 +1,56 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type Variants,
+} from "framer-motion";
 import { fadeUp, staggerContainer, EASE_OUT } from "@/lib/animations";
 import { site, heroTypewriter } from "@/data/site";
-import SkillConstellation from "./SkillConstellation";
+import Magnetic from "./Magnetic";
+
+/* ---------- per-letter reveal for the giant name ---------- */
+
+const letterVar: Variants = {
+  hidden: { y: "112%", rotate: 4 },
+  show: {
+    y: "0%",
+    rotate: 0,
+    transition: { duration: 0.8, ease: EASE_OUT },
+  },
+};
+
+function BigLetters({ text }: { text: string }) {
+  return (
+    <>
+      {text.split("").map((ch, i) => (
+        <span
+          key={i}
+          className="inline-block overflow-hidden pb-[0.06em] align-bottom"
+        >
+          <motion.span
+            variants={letterVar}
+            whileHover={{
+              y: -14,
+              color: "#E29D71",
+              transition: { type: "spring", stiffness: 400, damping: 11 },
+            }}
+            className="inline-block"
+          >
+            {ch === " " ? " " : ch}
+          </motion.span>
+        </span>
+      ))}
+    </>
+  );
+}
+
+/* ---------- typewriter ---------- */
 
 function Typewriter({ phrases }: { phrases: string[] }) {
   const [index, setIndex] = useState(0);
@@ -42,117 +88,147 @@ function Typewriter({ phrases }: { phrases: string[] }) {
   );
 }
 
+/* ---------- hero ---------- */
+
 export default function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const reduced = useReducedMotion();
+
+  /* Cursor spotlight over the dotted grid */
+  const spotX = useMotionValue(-600);
+  const spotY = useMotionValue(-600);
+  const spotlight = useMotionTemplate`radial-gradient(640px circle at ${spotX}px ${spotY}px, rgba(226, 157, 113, 0.09), transparent 70%)`;
+
+  const onMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (reduced || !ref.current) return;
+    const r = ref.current.getBoundingClientRect();
+    spotX.set(e.clientX - r.left);
+    spotY.set(e.clientY - r.top);
+  };
+
+  /* Parallax exit */
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const yExit = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -90]);
+  const fade = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
+
   return (
     <section
+      ref={ref}
       id="hero"
       data-domain="ai"
+      onMouseMove={onMouseMove}
       className="grid-backdrop relative flex min-h-screen items-center overflow-hidden"
     >
-      {/* Ambient radial glow */}
-      <div
+      {/* cursor spotlight */}
+      <motion.div
         aria-hidden
-        className="pointer-events-none absolute -top-40 left-1/4 h-[520px] w-[520px] rounded-full bg-ai/10 blur-[140px]"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute bottom-0 right-0 h-[420px] w-[420px] rounded-full bg-systems/10 blur-[150px]"
+        style={{ background: spotlight }}
+        className="pointer-events-none absolute inset-0"
       />
 
-      <div className="section-pad grid w-full items-center gap-12 lg:grid-cols-[3fr_2fr] lg:gap-10">
-        {/* LEFT */}
-        <motion.div
-          initial="hidden"
-          animate="show"
-          variants={staggerContainer(0.15, 0.1)}
+      <motion.div
+        style={{ y: yExit, opacity: fade }}
+        initial="hidden"
+        animate="show"
+        variants={staggerContainer(0.14, 2.0)}
+        className="section-pad w-full"
+      >
+        <motion.p
+          variants={fadeUp}
+          className="mono mb-6 flex items-center gap-3 text-sm text-text-muted"
         >
-          <motion.div variants={fadeUp} className="mb-5 flex items-center gap-3">
-            <span className="inline-block h-10 w-[3px] rounded-full bg-ai" />
-            <span className="mono text-sm text-text-muted">
-              {site.location}
-            </span>
-          </motion.div>
+          <span className="inline-block h-2 w-2 animate-pulse rounded-full bg-fullstack" />
+          {site.location} · open to work
+        </motion.p>
 
-          <motion.h1
-            variants={fadeUp}
-            className="text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
+        {/* THE name — fills the viewport width */}
+        <motion.h1
+          variants={staggerContainer(0.055)}
+          className="display select-none whitespace-nowrap text-[clamp(3.2rem,9vw,8rem)] font-semibold leading-[0.95] tracking-tight text-text"
+        >
+          <BigLetters text="Ajay C" />
+          <motion.span
+            variants={letterVar}
+            className="inline-block text-ai"
           >
-            Ajay C
-          </motion.h1>
+            .
+          </motion.span>
+        </motion.h1>
 
-          <motion.p
-            variants={fadeUp}
-            className="mt-3 text-xl font-medium text-text sm:text-2xl"
-          >
-            {site.role}
-          </motion.p>
+        <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div>
+            <motion.p
+              variants={fadeUp}
+              className="max-w-xl text-xl leading-relaxed text-text sm:text-2xl"
+            >
+              {site.role} — I like problems that{" "}
+              <em className="display text-security">actually</em> have to
+              work.
+            </motion.p>
 
-          <motion.div
-            variants={fadeUp}
-            className="mt-5 min-h-[28px] text-sm sm:text-base"
-          >
-            <span className="text-text-muted">{"> "}</span>
-            <Typewriter phrases={heroTypewriter} />
-          </motion.div>
-
-          {/* Credential chips */}
-          <motion.div
-            variants={fadeUp}
-            className="mt-7 flex flex-wrap items-center gap-3"
-          >
-            <span className="mono rounded-full border border-border bg-surface px-3.5 py-1.5 text-xs text-text">
-              CGPA {site.cgpa} · {site.institution}
-            </span>
-          </motion.div>
+            <motion.div
+              variants={fadeUp}
+              className="mt-4 min-h-[28px] text-sm sm:text-base"
+            >
+              <span className="text-text-muted">{"> "}</span>
+              <Typewriter phrases={heroTypewriter} />
+            </motion.div>
+          </div>
 
           {/* CTAs */}
-          <motion.div variants={fadeUp} className="mt-9 flex flex-wrap gap-4">
-            <a
-              href="#projects"
-              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-lg bg-ai px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5"
-            >
-              <span className="absolute inset-0 -z-0 bg-gradient-to-r from-ai to-[#6366f1] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              <span className="relative z-10">View Projects</span>
-              <span className="relative z-10 transition-transform duration-200 group-hover:translate-x-0.5">
-                →
-              </span>
-            </a>
-            <a
-              href={site.resume}
-              download
-              className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface/50 px-6 py-3 text-sm font-semibold text-text transition-all duration-200 hover:-translate-y-0.5 hover:border-text-muted"
-            >
-              Download Résumé
-              <span aria-hidden>↓</span>
-            </a>
+          <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
+            <Magnetic>
+              <a
+                href="#projects"
+                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-ai px-7 py-3.5 text-sm font-semibold text-bg shadow-glow-ai transition-shadow duration-300 hover:shadow-card-hover"
+              >
+                <span className="absolute inset-0 bg-gradient-to-r from-ai to-security opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <span className="relative z-10">See the work</span>
+                <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">
+                  →
+                </span>
+              </a>
+            </Magnetic>
+            <Magnetic strength={0.25}>
+              <a
+                href={site.resume}
+                download
+                className="group inline-flex items-center gap-2 rounded-full border border-border bg-surface/50 px-7 py-3.5 text-sm font-semibold text-text transition-colors duration-300 hover:border-ai/50 hover:text-ai"
+              >
+                Résumé
+                <span
+                  aria-hidden
+                  className="transition-transform duration-300 group-hover:translate-y-0.5"
+                >
+                  ↓
+                </span>
+              </a>
+            </Magnetic>
           </motion.div>
-        </motion.div>
-
-        {/* RIGHT — skill constellation */}
-        <motion.div
-          initial={{ opacity: 0, y: 30, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.5, ease: EASE_OUT }}
-        >
-          <SkillConstellation />
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
 
       {/* Scroll hint */}
-      <motion.div
+      <motion.a
+        href="#about"
+        aria-label="Scroll down"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-7 left-1/2 -translate-x-1/2"
+        transition={{ delay: 3, duration: 1 }}
+        style={{ opacity: fade }}
+        className="absolute bottom-7 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
       >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          className="mono text-[11px] uppercase tracking-[0.3em] text-text-muted"
-        >
-          scroll
-        </motion.div>
-      </motion.div>
+        <span className="flex h-9 w-[22px] items-start justify-center rounded-full border border-text-muted/50 p-1.5">
+          <motion.span
+            animate={{ y: [0, 12], opacity: [1, 0] }}
+            transition={{ duration: 1.4, repeat: Infinity, ease: "easeIn" }}
+            className="h-1.5 w-1.5 rounded-full bg-ai"
+          />
+        </span>
+      </motion.a>
     </section>
   );
 }

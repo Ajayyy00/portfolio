@@ -1,10 +1,20 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll } from "framer-motion";
+import { motion, useScroll, type Variants } from "framer-motion";
 import { experience } from "@/data/experience";
 import SDCContributions from "./SDCContributions";
-import { fadeUp, VIEWPORT } from "@/lib/animations";
+import { EASE_OUT, VIEWPORT } from "@/lib/animations";
+
+/** Entries alternate: slide in from the left, then the right. */
+const slideFrom = (dir: 1 | -1): Variants => ({
+  hidden: { opacity: 0, x: 44 * dir },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.65, ease: EASE_OUT },
+  },
+});
 
 export default function Timeline() {
   const ref = useRef<HTMLDivElement>(null);
@@ -23,7 +33,7 @@ export default function Timeline() {
         preserveAspectRatio="none"
         fill="none"
       >
-        <line x1="1" y1="0" x2="1" y2="100" stroke="#1E1E2E" strokeWidth="2" />
+        <line x1="1" y1="0" x2="1" y2="100" stroke="#362D23" strokeWidth="2" />
         <motion.line
           x1="1"
           y1="0"
@@ -35,16 +45,16 @@ export default function Timeline() {
         />
         <defs>
           <linearGradient id="tl-grad" x1="0" y1="0" x2="0" y2="100" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#3B82F6" />
-            <stop offset="1" stopColor="#10B981" />
+            <stop stopColor="#E29D71" />
+            <stop offset="1" stopColor="#A9C39B" />
           </linearGradient>
         </defs>
       </svg>
 
       <div className="space-y-12">
-        {experience.map((entry) => (
+        {experience.map((entry, i) => (
           <div key={entry.id} className="relative">
-            {/* node */}
+            {/* node with a soft radar ping */}
             <motion.span
               initial={{ scale: 0, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
@@ -53,18 +63,29 @@ export default function Timeline() {
               className="absolute -left-[34px] top-1.5 grid h-4 w-4 place-items-center rounded-full border-2 border-ai bg-bg sm:-left-[42px]"
             >
               <span className="h-1.5 w-1.5 rounded-full bg-ai" />
+              <motion.span
+                aria-hidden
+                initial={{ scale: 1, opacity: 0 }}
+                whileInView={{ scale: 2.4, opacity: [0, 0.5, 0] }}
+                viewport={VIEWPORT}
+                transition={{ duration: 1.4, delay: 0.4, ease: "easeOut" }}
+                className="absolute inset-0 rounded-full border border-ai"
+              />
             </motion.span>
 
             <motion.div
               initial="hidden"
               whileInView="show"
               viewport={VIEWPORT}
-              variants={fadeUp}
+              variants={slideFrom(i % 2 === 0 ? -1 : 1)}
             >
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                <h3 className="text-lg font-semibold text-white">
+                <h3 className="display text-xl font-semibold text-text">
                   {entry.company}
-                  <span className="text-text-muted"> · {entry.role}</span>
+                  <span className="font-sans text-base font-normal text-text-muted">
+                    {" "}
+                    · {entry.role}
+                  </span>
                 </h3>
                 <span className="mono text-xs text-text-muted">{entry.period}</span>
               </div>
@@ -74,9 +95,9 @@ export default function Timeline() {
               )}
 
               <ul className="mt-3 space-y-2">
-                {entry.bullets.map((b, i) => (
+                {entry.bullets.map((b, j) => (
                   <li
-                    key={i}
+                    key={j}
                     className="flex gap-2.5 text-sm leading-relaxed text-text-muted"
                   >
                     <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-ai/60" />

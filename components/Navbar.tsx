@@ -6,6 +6,7 @@ import { site } from "@/data/site";
 import { useActiveSection } from "@/lib/useActiveSection";
 
 const links = [
+  { id: "about", label: "About" },
   { id: "skills", label: "Skills" },
   { id: "projects", label: "Projects" },
   { id: "experience", label: "Experience" },
@@ -41,16 +42,16 @@ export default function Navbar() {
       <nav
         className={`flex w-full max-w-5xl items-center justify-between rounded-full border px-4 py-2.5 transition-colors duration-300 sm:px-5 ${
           scrolled
-            ? "border-border bg-surface/70 backdrop-blur-xl"
+            ? "border-border bg-surface/90 backdrop-blur-sm"
             : "border-transparent bg-transparent"
         }`}
       >
         <a
           href="#hero"
-          className="mono group flex items-center gap-2 text-sm font-bold tracking-tight text-text"
+          className="display group flex items-center gap-2 text-base font-semibold tracking-tight text-text"
         >
-          <span className="inline-block h-4 w-[3px] rounded-full bg-ai transition-all duration-300 group-hover:h-5" />
-          ajay-c
+          <span className="inline-block h-2 w-2 rounded-full bg-ai transition-transform duration-300 group-hover:scale-125" />
+          Ajay&nbsp;C<span className="text-ai">.</span>
         </a>
 
         <ul className="hidden items-center gap-1 md:flex">
@@ -67,7 +68,7 @@ export default function Navbar() {
                 {activeId === link.id && (
                   <motion.span
                     layoutId="nav-active"
-                    className="absolute inset-0 -z-10 rounded-full bg-white/5"
+                    className="absolute inset-0 -z-10 rounded-full bg-ai/10"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
@@ -80,7 +81,7 @@ export default function Navbar() {
         <a
           href={site.resume}
           download
-          className="mono rounded-full border border-border bg-white/5 px-3.5 py-1.5 text-xs font-medium text-text transition-colors hover:border-ai/60 hover:text-ai"
+          className="mono rounded-full border border-border bg-ai/5 px-3.5 py-1.5 text-xs font-medium text-text transition-colors hover:border-ai/60 hover:text-ai"
         >
           Résumé
         </a>

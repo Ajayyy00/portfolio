@@ -11,9 +11,10 @@ export default function Experience() {
       className="section-pad scroll-mt-24"
     >
       <SectionHeading
+        index="04"
         title="Experience"
         subtitle="What I've actually been paid (or asked) to build, in order."
-        accent="#10B981"
+        accent="#A9C39B"
       />
       <Timeline />
     </section>
