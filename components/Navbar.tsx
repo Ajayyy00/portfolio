@@ -48,10 +48,10 @@ export default function Navbar() {
       >
         <a
           href="#hero"
-          className="display group flex items-center gap-2 text-base font-semibold tracking-tight text-text"
+          aria-label="Back to top"
+          className="group flex items-center p-1.5"
         >
-          <span className="inline-block h-2 w-2 rounded-full bg-ai transition-transform duration-300 group-hover:scale-125" />
-          Ajay&nbsp;C<span className="text-ai">.</span>
+          <span className="inline-block h-2.5 w-2.5 rounded-full bg-ai transition-transform duration-300 group-hover:scale-125" />
         </a>
 
         <ul className="hidden items-center gap-1 md:flex">
