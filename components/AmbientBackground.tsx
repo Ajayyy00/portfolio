@@ -1,10 +1,35 @@
+"use client";
+
+import { useEffect } from "react";
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useReducedMotion,
+} from "framer-motion";
+
 /**
- * Warm ambient backdrop — static, pre-composed radial gradients plus the
- * dotted grid, covering the entire site so every section shares the same
- * atmosphere. No blur filters, no animation loops: renders once, costs
- * nothing per frame.
+ * Warm ambient backdrop covering the entire site: static radial glows,
+ * the dotted grid, and a cursor spotlight that follows the mouse on every
+ * page — one fixed layer, no clipping at section boundaries, no blur
+ * filters, near-zero per-frame cost.
  */
 export default function AmbientBackground() {
+  const reduced = useReducedMotion();
+  const x = useMotionValue(-600);
+  const y = useMotionValue(-600);
+  const spotlight = useMotionTemplate`radial-gradient(640px circle at ${x}px ${y}px, rgba(226, 157, 113, 0.08), transparent 70%)`;
+
+  useEffect(() => {
+    if (reduced) return;
+    const onMove = (e: MouseEvent) => {
+      x.set(e.clientX);
+      y.set(e.clientY);
+    };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => window.removeEventListener("mousemove", onMove);
+  }, [reduced, x, y]);
+
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">
       {/* warm glows */}
@@ -18,8 +43,10 @@ export default function AmbientBackground() {
           ].join(", "),
         }}
       />
-      {/* dotted grid — same texture as the hero, everywhere */}
+      {/* dotted grid — same texture everywhere */}
       <div className="grid-backdrop absolute inset-0" />
+      {/* cursor spotlight — follows the mouse across the whole site */}
+      <motion.div style={{ background: spotlight }} className="absolute inset-0" />
     </div>
   );
 }

@@ -3,8 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
   motion,
-  useMotionTemplate,
-  useMotionValue,
   useReducedMotion,
   useScroll,
   useTransform,
@@ -95,18 +93,6 @@ export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
 
-  /* Cursor spotlight over the dotted grid */
-  const spotX = useMotionValue(-600);
-  const spotY = useMotionValue(-600);
-  const spotlight = useMotionTemplate`radial-gradient(640px circle at ${spotX}px ${spotY}px, rgba(226, 157, 113, 0.09), transparent 70%)`;
-
-  const onMouseMove = (e: React.MouseEvent<HTMLElement>) => {
-    if (reduced || !ref.current) return;
-    const r = ref.current.getBoundingClientRect();
-    spotX.set(e.clientX - r.left);
-    spotY.set(e.clientY - r.top);
-  };
-
   /* Parallax exit */
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -120,16 +106,8 @@ export default function Hero() {
       ref={ref}
       id="hero"
       data-domain="ai"
-      onMouseMove={onMouseMove}
       className="relative flex min-h-screen items-center overflow-hidden"
     >
-      {/* cursor spotlight */}
-      <motion.div
-        aria-hidden
-        style={{ background: spotlight }}
-        className="pointer-events-none absolute inset-0"
-      />
-
       <motion.div
         style={{ y: yExit, opacity: fade }}
         initial="hidden"
