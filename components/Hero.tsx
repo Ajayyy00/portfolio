@@ -147,7 +147,7 @@ export default function Hero() {
         {/* THE name — fills the viewport width */}
         <motion.h1
           variants={staggerContainer(0.055)}
-          className="display select-none whitespace-nowrap text-[clamp(3.2rem,9vw,8rem)] font-semibold leading-[0.95] tracking-tight text-text"
+          className="display select-none text-[clamp(3rem,9vw,8rem)] font-semibold leading-[0.98] tracking-tight text-text"
         >
           <BigLetters text="Ajay C" />
           <motion.span

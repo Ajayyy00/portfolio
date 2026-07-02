@@ -41,10 +41,10 @@ function CopyEmail() {
   return (
     <button
       onClick={copy}
-      className="group relative mt-8 inline-flex items-center gap-3 rounded-full border border-ai/40 bg-ai/[0.06] px-7 py-4 transition-colors duration-300 hover:border-ai/70 hover:bg-ai/10"
+      className="group relative mt-8 inline-flex max-w-full flex-wrap items-center justify-center gap-3 rounded-full border border-ai/40 bg-ai/[0.06] px-5 py-4 transition-colors duration-300 hover:border-ai/70 hover:bg-ai/10 sm:px-7"
       aria-live="polite"
     >
-      <span className="mono text-base text-text sm:text-lg">{site.email}</span>
+      <span className="mono break-all text-sm text-text sm:text-lg">{site.email}</span>
       <span className="relative grid h-6 w-14 place-items-center overflow-hidden rounded-full bg-ai/15 text-[10px] font-semibold uppercase tracking-wider text-ai">
         <AnimatePresence mode="popLayout" initial={false}>
           {copied ? (

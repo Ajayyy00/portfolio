@@ -83,7 +83,7 @@ export default function Skills() {
         </motion.div>
 
         {/* draggable ID badge — grab it, it swings back */}
-        <div className="hidden lg:sticky lg:top-24 lg:block lg:self-start">
+        <div className="mt-6 lg:mt-0 lg:sticky lg:top-24 lg:self-start">
           <IdCard />
         </div>
       </div>
