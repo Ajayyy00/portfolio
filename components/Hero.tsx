@@ -13,6 +13,7 @@ import {
 import { fadeUp, staggerContainer, EASE_OUT } from "@/lib/animations";
 import { site, heroTypewriter } from "@/data/site";
 import Magnetic from "./Magnetic";
+import IdCard from "./IdCard";
 
 /* ---------- per-letter reveal for the giant name ---------- */
 
@@ -31,7 +32,7 @@ function BigLetters({ text }: { text: string }) {
       {text.split("").map((ch, i) => (
         <span
           key={i}
-          className="inline-block overflow-hidden pb-[0.06em] align-bottom"
+          className="inline-block overflow-hidden px-[0.02em] pb-[0.14em] align-bottom"
         >
           <motion.span
             variants={letterVar}
@@ -42,7 +43,7 @@ function BigLetters({ text }: { text: string }) {
             }}
             className="inline-block"
           >
-            {ch === " " ? " " : ch}
+            {ch === " " ? "\u00A0" : ch}
           </motion.span>
         </span>
       ))}
@@ -134,8 +135,9 @@ export default function Hero() {
         initial="hidden"
         animate="show"
         variants={staggerContainer(0.14, 2.0)}
-        className="section-pad w-full"
+        className="section-pad grid w-full items-center gap-12 lg:grid-cols-[1fr_auto]"
       >
+        <div>
         <motion.p
           variants={fadeUp}
           className="mono mb-6 flex items-center gap-3 text-sm text-text-muted"
@@ -209,6 +211,17 @@ export default function Hero() {
             </Magnetic>
           </motion.div>
         </div>
+        </div>
+
+        {/* visitor badge — grab it; the barcode downloads the résumé */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2.6, duration: 0.8, ease: EASE_OUT }}
+          className="hidden lg:block"
+        >
+          <IdCard />
+        </motion.div>
       </motion.div>
 
       {/* Scroll hint */}

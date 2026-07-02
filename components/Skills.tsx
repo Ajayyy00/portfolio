@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import SectionHeading from "./SectionHeading";
-import IdCard from "./IdCard";
 import { skillGroups } from "@/data/skills";
 import { DOMAINS } from "@/lib/domains";
 import { fadeUpSm, scaleIn, staggerContainer, VIEWPORT } from "@/lib/animations";
@@ -15,15 +14,13 @@ export default function Skills() {
         title="Skills & Tooling"
       />
 
-      <div className="mt-12 grid items-center gap-12 lg:grid-cols-[3fr_2fr]">
-        {/* skill group cards */}
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={VIEWPORT}
-          variants={staggerContainer(0.12)}
-          className="grid gap-5 sm:grid-cols-2"
-        >
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={VIEWPORT}
+        variants={staggerContainer(0.12)}
+        className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+      >
           {skillGroups.map((group, i) => {
             const accent = DOMAINS[group.domain];
             return (
@@ -80,13 +77,7 @@ export default function Skills() {
               </motion.div>
             );
           })}
-        </motion.div>
-
-        {/* draggable ID badge — grab it, it swings back */}
-        <div className="mt-6 lg:mt-0 lg:sticky lg:top-24 lg:self-start">
-          <IdCard />
-        </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
