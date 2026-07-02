@@ -8,6 +8,7 @@ import {
   useReducedMotion,
   useScroll,
   useTransform,
+  type MotionStyle,
   type MotionValue,
 } from "framer-motion";
 import type { Project } from "@/data/projects";
@@ -96,7 +97,7 @@ export default function ProjectCard({
                 scale,
                 willChange: "transform",
                 "--stack-top": `calc(4vh + ${index * 14}px)`,
-              } as React.CSSProperties)
+              } as MotionStyle)
         }
         className="group relative mb-8 w-full origin-top cursor-pointer overflow-hidden rounded-3xl border border-border bg-raised shadow-card-hover sm:mb-0 sm:top-[var(--stack-top)]"
       >
