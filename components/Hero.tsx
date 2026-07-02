@@ -121,7 +121,7 @@ export default function Hero() {
       id="hero"
       data-domain="ai"
       onMouseMove={onMouseMove}
-      className="grid-backdrop relative flex min-h-screen items-center overflow-hidden"
+      className="relative flex min-h-screen items-center overflow-hidden"
     >
       {/* cursor spotlight */}
       <motion.div
@@ -228,6 +228,12 @@ export default function Hero() {
       <motion.a
         href="#about"
         aria-label="Scroll down"
+        onClick={(e) => {
+          e.preventDefault();
+          document
+            .getElementById("about")
+            ?.scrollIntoView({ behavior: "smooth" });
+        }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 3, duration: 1 }}
