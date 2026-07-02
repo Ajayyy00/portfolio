@@ -185,7 +185,7 @@ export default function Hero() {
             <Magnetic>
               <a
                 href="#projects"
-                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-ai px-7 py-3.5 text-sm font-semibold text-bg shadow-glow-ai transition-shadow duration-300 hover:shadow-card-hover"
+                className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-ai px-7 py-3.5 text-sm font-semibold text-bg shadow-glow-ai transition-[box-shadow,transform] duration-300 hover:shadow-card-hover active:scale-95"
               >
                 <span className="absolute inset-0 bg-gradient-to-r from-ai to-security opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 <span className="relative z-10">See the work</span>
@@ -198,7 +198,7 @@ export default function Hero() {
               <a
                 href={site.resume}
                 download
-                className="group inline-flex items-center gap-2 rounded-full border border-border bg-surface/50 px-7 py-3.5 text-sm font-semibold text-text transition-colors duration-300 hover:border-ai/50 hover:text-ai"
+                className="group inline-flex items-center gap-2 rounded-full border border-border bg-surface/50 px-7 py-3.5 text-sm font-semibold text-text transition-[color,border-color,transform] duration-300 hover:border-ai/50 hover:text-ai active:scale-95"
               >
                 Résumé
                 <span
@@ -218,7 +218,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 2.6, duration: 0.8, ease: EASE_OUT }}
-          className="hidden lg:block"
+          className="flex justify-center pb-6 lg:block lg:pb-0"
         >
           <IdCard />
         </motion.div>

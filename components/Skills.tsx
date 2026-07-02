@@ -69,6 +69,7 @@ export default function Skills() {
                         color: accent.hex,
                         borderColor: accent.hex,
                       }}
+                      whileTap={{ scale: 0.92, color: accent.hex }}
                     >
                       {skill}
                     </motion.li>

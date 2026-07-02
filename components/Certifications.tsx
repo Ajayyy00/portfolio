@@ -44,6 +44,7 @@ function TiltCard({ c }: { c: Certification }) {
     <motion.div
       onMouseMove={onMouseMove}
       onMouseLeave={reset}
+      whileTap={{ scale: 0.97 }}
       style={
         reduced ? undefined : { rotateX, rotateY, transformPerspective: 800 }
       }

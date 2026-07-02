@@ -176,14 +176,21 @@ export default function Achievements() {
           whileInView="show"
           viewport={VIEWPORT}
           variants={staggerContainer(0.12)}
-          className="mt-12 grid gap-5 sm:grid-cols-2"
+          className="-mx-5 mt-12 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 [-webkit-overflow-scrolling:touch] [scrollbar-width:none]"
         >
           {achievements.map((a, i) => (
-            <motion.div key={a.event} variants={flipIn}>
+            <motion.div
+              key={a.event}
+              variants={flipIn}
+              className="w-[82vw] max-w-[360px] shrink-0 snap-center"
+            >
               <Card a={a} i={i} />
             </motion.div>
           ))}
         </motion.div>
+        <p className="mono mt-2 text-[10px] uppercase tracking-[0.25em] text-text-muted/70">
+          swipe →
+        </p>
       </div>
     </section>
   );

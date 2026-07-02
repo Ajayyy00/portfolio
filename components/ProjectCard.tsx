@@ -84,7 +84,7 @@ export default function ProjectCard({
   return (
     <div
       ref={cardRef}
-      className="sm:sticky sm:top-0 sm:flex sm:h-screen sm:items-center"
+      className="sticky top-0 flex h-screen items-center"
       style={{ zIndex: index + 1 }}
     >
       <motion.article
@@ -96,10 +96,10 @@ export default function ProjectCard({
             : ({
                 scale,
                 willChange: "transform",
-                "--stack-top": `calc(4vh + ${index * 14}px)`,
+                "--stack-top": `calc(3vh + ${index * 10}px)`,
               } as MotionStyle)
         }
-        className="group relative mb-8 w-full origin-top cursor-pointer overflow-hidden rounded-3xl border border-border bg-raised shadow-card-hover sm:mb-0 sm:top-[var(--stack-top)]"
+        className="group relative w-full origin-top cursor-pointer overflow-hidden rounded-3xl border border-border bg-raised shadow-card-hover top-[var(--stack-top)]"
       >
         {/* dim veil as the card settles under the stack */}
         <motion.div
@@ -124,12 +124,12 @@ export default function ProjectCard({
         {/* giant ghost number */}
         <span
           aria-hidden
-          className="display pointer-events-none absolute -top-6 right-4 select-none text-[8rem] font-semibold italic leading-none text-text/[0.05] sm:text-[13rem]"
+          className="display pointer-events-none absolute -top-4 right-3 select-none text-[5.5rem] font-semibold italic leading-none text-text/[0.05] sm:-top-6 sm:right-4 sm:text-[13rem]"
         >
           {num}
         </span>
 
-        <div className="relative flex flex-col gap-6 p-7 sm:p-12">
+        <div className="relative flex flex-col gap-4 p-6 sm:gap-6 sm:p-12">
           <div className="flex flex-wrap items-center gap-3">
             <span className="mono text-xs text-text-muted">
               {num} / {String(total).padStart(2, "0")}
@@ -145,7 +145,7 @@ export default function ProjectCard({
             </span>
           </div>
 
-          <h3 className="display max-w-3xl text-3xl font-semibold leading-tight text-text sm:text-5xl">
+          <h3 className="display max-w-3xl text-2xl font-semibold leading-tight text-text sm:text-5xl">
             {project.title}
           </h3>
 
@@ -171,7 +171,7 @@ export default function ProjectCard({
 
           {/* stack pills */}
           <div className="flex flex-wrap gap-2">
-            {project.stack.map((tech) => (
+            {project.stack.slice(0, 8).map((tech) => (
               <span
                 key={tech}
                 className="mono rounded-full border border-border bg-bg/50 px-3 py-1 text-[11px] text-text-muted"
@@ -179,6 +179,11 @@ export default function ProjectCard({
                 {tech}
               </span>
             ))}
+            {project.stack.length > 8 && (
+              <span className="mono rounded-full px-2 py-1 text-[11px] text-text-muted">
+                +{project.stack.length - 8}
+              </span>
+            )}
           </div>
 
           {/* footer */}
@@ -189,7 +194,7 @@ export default function ProjectCard({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="mono inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-xs text-text-muted transition-all duration-200 hover:-translate-y-0.5 hover:border-text-muted hover:text-text"
+                className="mono inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-xs text-text-muted transition-all duration-200 hover:-translate-y-0.5 hover:border-text-muted hover:text-text active:scale-95"
               >
                 GitHub ↗
               </a>
@@ -200,7 +205,7 @@ export default function ProjectCard({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="mono inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-xs text-text-muted transition-all duration-200 hover:-translate-y-0.5 hover:border-text-muted hover:text-text"
+                className="mono inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-xs text-text-muted transition-all duration-200 hover:-translate-y-0.5 hover:border-text-muted hover:text-text active:scale-95"
               >
                 Demo ↗
               </a>

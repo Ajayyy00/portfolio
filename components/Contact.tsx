@@ -41,7 +41,7 @@ function CopyEmail() {
   return (
     <button
       onClick={copy}
-      className="group relative mt-8 inline-flex max-w-full flex-wrap items-center justify-center gap-3 rounded-full border border-ai/40 bg-ai/[0.06] px-5 py-4 transition-colors duration-300 hover:border-ai/70 hover:bg-ai/10 sm:px-7"
+      className="group relative mt-8 inline-flex max-w-full flex-wrap items-center justify-center gap-3 rounded-full border border-ai/40 bg-ai/[0.06] px-5 py-4 transition-colors duration-300 hover:border-ai/70 hover:bg-ai/10 active:scale-[0.97] sm:px-7"
       aria-live="polite"
     >
       <span className="mono break-all text-sm text-text sm:text-lg">{site.email}</span>
@@ -121,7 +121,7 @@ export default function Contact() {
                 href={l.href}
                 target={l.key === "email" ? undefined : "_blank"}
                 rel={l.key === "email" ? undefined : "noopener noreferrer"}
-                className="group inline-flex items-center gap-2.5 rounded-full border border-border bg-surface/70 px-5 py-3 text-sm text-text shadow-card transition-colors duration-300 hover:border-ai/50 hover:text-ai"
+                className="group inline-flex items-center gap-2.5 rounded-full border border-border bg-surface/70 px-5 py-3 text-sm text-text shadow-card transition-[color,border-color,transform] duration-300 hover:border-ai/50 hover:text-ai active:scale-95"
               >
                 <span className="text-text-muted transition-colors group-hover:text-ai">
                   {ICONS[l.key]}
