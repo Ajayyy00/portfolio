@@ -1,12 +1,10 @@
 "use client";
 
-import { useRef } from "react";
 import {
   motion,
   useMotionTemplate,
   useMotionValue,
   useReducedMotion,
-  useScroll,
   useTransform,
   type MotionStyle,
   type MotionValue,
@@ -38,31 +36,20 @@ export default function ProjectCard({
   const accent = DOMAINS[project.domain];
   const accent2 = project.accent ? DOMAINS[project.accent] : accent;
   const reduced = useReducedMotion();
-  const cardRef = useRef<HTMLDivElement>(null);
 
-  /* Entry animation for this card as it scrolls into view */
-  const { scrollYProgress: entry } = useScroll({
-    target: cardRef,
-    offset: ["start end", "start start"],
-  });
-  const enterScale = useTransform(entry, [0, 1], [0.96, 1]);
-
-  /* Once settled, shrink + dim as the rest of the deck scrolls by */
+  /*
+   * Shrink + dim as the rest of the deck scrolls over this settled card —
+   * the classic "stacking cards" effect. Driven entirely by the one shared
+   * deck scroll tracker (no per-card useScroll), so it stays cheap and works
+   * identically on mobile and desktop.
+   */
   const targetScale = 1 - (total - 1 - index) * 0.028;
   const settleStart = (index + 1) / total;
-  const settledScale = useTransform(
-    deckProgress,
-    [settleStart, 1],
-    [1, targetScale],
-  );
+  const scale = useTransform(deckProgress, [settleStart, 1], [1, targetScale]);
   const settledDim = useTransform(
     deckProgress,
     [settleStart, 1],
     [0, Math.min(0.5, (total - 1 - index) * 0.08)],
-  );
-  const scale = useTransform(
-    [enterScale, settledScale],
-    ([a, b]: number[]) => Math.min(a, b),
   );
 
   /* Cursor glare */
@@ -82,10 +69,13 @@ export default function ProjectCard({
   const num = String(index + 1).padStart(2, "0");
 
   return (
-    <div
-      ref={cardRef}
+    <motion.div
       className="sticky top-0 flex h-screen items-start"
       style={{ zIndex: index + 1 }}
+      initial={reduced ? false : { opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-20% 0px -20% 0px" }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
       <motion.article
         onClick={() => onExpand(project)}
@@ -223,6 +213,6 @@ export default function ProjectCard({
           </div>
         </div>
       </motion.article>
-    </div>
+    </motion.div>
   );
 }
