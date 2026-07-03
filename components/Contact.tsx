@@ -136,8 +136,8 @@ export default function Contact() {
           variants={fadeUp}
           className="mono mt-20 text-xs text-text-muted"
         >
-          © {new Date().getFullYear()} Ajay C · Built with Next.js, Tailwind &
-          Framer Motion
+          {new Date().getFullYear()} · Ajay C · Built with Next.js, Tailwind
+          & Framer Motion
         </motion.footer>
       </motion.div>
     </section>

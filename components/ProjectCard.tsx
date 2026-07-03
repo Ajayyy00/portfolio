@@ -48,7 +48,7 @@ export default function ProjectCard({
   const enterScale = useTransform(entry, [0, 1], [0.96, 1]);
 
   /* Once settled, shrink + dim as the rest of the deck scrolls by */
-  const targetScale = 1 - (total - 1 - index) * 0.045;
+  const targetScale = 1 - (total - 1 - index) * 0.028;
   const settleStart = (index + 1) / total;
   const settledScale = useTransform(
     deckProgress,
@@ -58,7 +58,7 @@ export default function ProjectCard({
   const settledDim = useTransform(
     deckProgress,
     [settleStart, 1],
-    [0, (total - 1 - index) * 0.14],
+    [0, Math.min(0.5, (total - 1 - index) * 0.08)],
   );
   const scale = useTransform(
     [enterScale, settledScale],
@@ -96,7 +96,7 @@ export default function ProjectCard({
             : ({
                 scale,
                 willChange: "transform",
-                "--stack-top": `calc(3vh + ${index * 10}px)`,
+                "--stack-top": `calc(4vh + ${index * 16}px)`,
               } as MotionStyle)
         }
         className="group relative w-full origin-top cursor-pointer overflow-hidden rounded-3xl border border-border bg-raised shadow-card-hover top-[var(--stack-top)]"
@@ -131,9 +131,6 @@ export default function ProjectCard({
 
         <div className="relative flex flex-col gap-4 p-6 sm:gap-6 sm:p-12">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="mono text-xs text-text-muted">
-              {num} / {String(total).padStart(2, "0")}
-            </span>
             <span
               className="mono rounded-full px-3 py-1 text-[11px] font-medium uppercase tracking-wider"
               style={{
