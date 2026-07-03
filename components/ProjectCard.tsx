@@ -44,7 +44,10 @@ export default function ProjectCard({
    * identically on mobile and desktop.
    */
   const targetScale = 1 - (total - 1 - index) * 0.028;
-  const settleStart = (index + 1) / total;
+  // Clamp below 1: the topmost card's raw settleStart is exactly 1, which would
+  // make a zero-width input range and yield NaN (a scale glitch) at the bottom
+  // of the deck. It never gets covered, so it simply stays at scale 1.
+  const settleStart = Math.min((index + 1) / total, 0.999);
   const scale = useTransform(deckProgress, [settleStart, 1], [1, targetScale]);
   const settledDim = useTransform(
     deckProgress,
