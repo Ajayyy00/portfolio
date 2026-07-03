@@ -64,6 +64,7 @@ export default function SectionHeading({
       </motion.div>
 
       <motion.h2
+        aria-label={title}
         initial="hidden"
         whileInView="show"
         viewport={VIEWPORT}
@@ -73,7 +74,7 @@ export default function SectionHeading({
         }`}
       >
         {words.map((word, i) => (
-          <span key={i} className="inline-block overflow-hidden pb-[0.12em]">
+          <span key={i} aria-hidden className="inline-block overflow-hidden pb-[0.12em]">
             <motion.span variants={wordClip} className="inline-block">
               {word}
             </motion.span>

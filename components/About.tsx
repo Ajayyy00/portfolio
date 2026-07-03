@@ -21,9 +21,11 @@ function Word({
 }) {
   const opacity = useTransform(progress, range, [0.14, 1]);
   return (
-    <motion.span style={{ opacity }} className="mr-[0.32em] inline-block">
-      {children}
-    </motion.span>
+    <>
+      <motion.span style={{ opacity }} className="inline-block">
+        {children}
+      </motion.span>{" "}
+    </>
   );
 }
 
