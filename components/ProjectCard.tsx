@@ -84,7 +84,7 @@ export default function ProjectCard({
   return (
     <div
       ref={cardRef}
-      className="sticky top-0 flex h-screen items-center"
+      className="sticky top-0 flex h-screen items-start"
       style={{ zIndex: index + 1 }}
     >
       <motion.article
