@@ -1,5 +1,4 @@
 import type { Domain } from "@/lib/domains";
-import { site } from "@/data/site";
 
 export type ProjectFilter = "AI" | "Security" | "Full-Stack" | "Hardware" | "VR";
 
@@ -85,7 +84,7 @@ export const projects: Project[] = [
       ],
       note: "The validator loops back to the optimizer until the query is provably safe — only then does it execute.",
     },
-    github: site.github,
+    github: "https://github.com/Ajayyy00/RAG-DataAnalyst",
   },
   {
     id: "cybersocenv",
@@ -116,7 +115,7 @@ export const projects: Project[] = [
       ],
       note: "Observation → action repeats each step until the agent submits a containment plan.",
     },
-    github: site.github,
+    github: "https://github.com/Ajayyy00/CyberSOC-environment",
   },
   {
     id: "phishguard",
@@ -145,7 +144,7 @@ export const projects: Project[] = [
       ],
       note: "All inference runs against a local backend — no browsing data ever leaves the device.",
     },
-    github: site.github,
+    github: "https://github.com/Ajayyy00/PhishGaurd-extension",
   },
   {
     id: "log-analyser",
@@ -179,7 +178,7 @@ export const projects: Project[] = [
       ],
       note: "A cross-project memory layer (L0) matches new failures against past fixes before triage begins.",
     },
-    github: site.github,
+    github: "https://github.com/Ajayyy00/Log-analyser",
   },
   {
     id: "n2k-logistics",
@@ -218,7 +217,7 @@ export const projects: Project[] = [
       ],
       note: "Hub-based allocation routes every order to the optimal vehicle and driver.",
     },
-    github: site.github,
+    github: "https://github.com/harish040120/n2k_logistics",
   },
   {
     id: "seam",
@@ -245,7 +244,7 @@ export const projects: Project[] = [
       ],
       note: "Models load from Azure, cache in the browser, and run fully on-device — biometrics never leave the client.",
     },
-    github: site.github,
+    github: "https://github.com/Shyam94000/SecureDigitalWallet",
   },
   {
     id: "vr-flatlock",
@@ -260,6 +259,59 @@ export const projects: Project[] = [
       "PSG's Software Development Cell wanted a way for trainees to learn a real 5-thread flatlock sewing machine — the kind used on industrial garment lines — without the risk of an early mistake wasting fabric or damaging an expensive machine. I rebuilt the whole thing in Unity: the foot pedal, the thread tensioners, the fabric feed, and the looping motion of the 5-thread stitch itself, all rigged so someone can actually practice the real operating sequence in VR first. The tricky part was that it had to run standalone on a Meta Quest 2 with no PC tether, so I spent a lot of time trimming poly-count, draw calls and shader complexity down to fit the headset's GPU budget without it feeling sluggish or unlike the real machine. All the interaction logic and machine-state simulation is C#, built against Unity's XR input pipeline.",
     stat: "5-thread machine · standalone on Meta Quest 2",
     stack: ["Unity 3D", "C#", "Meta Quest 2"],
+  },
+  {
+    id: "pothole-detection",
+    title: "Pothole Detection & Safe Navigation",
+    tag: "AI · Edge Navigation",
+    domain: "ai",
+    accent: "fullstack",
+    categories: ["AI", "Full-Stack", "Hardware"],
+    description:
+      "Dashcam AI that spots potholes in real time and reroutes you around the worst roads — safest path, not just fastest.",
+    longDescription:
+      "Navigation apps optimise for the fastest route, which often means sending you straight down the most beaten-up road in the city — so I wanted a nav that optimises for your suspension instead. A dashcam-mounted camera runs YOLOv8 right there in the vehicle to spot potholes and speed breakers live, pairs each detection with GPS, and batches them up to Firebase only every 50 metres so it isn't hammering the database or your data plan on every frame. The GPS runs on its own parallel thread so the camera loop never blocks. On the other side, a web dashboard pulls those hazards, asks Google Maps for a few alternative routes, and scores each one by how many potholes — weighted by severity — sit near its path, so the 'Safest' route can beat the 'Fastest' one when the fast road is wrecked. It also fires voice alerts when you're within 100m of a known hazard and draws a live heatmap of the roughest areas. It's honestly a prototype — the spatial maths still runs client-side and it'd need GeoHash indexing and a real backend to scale — but end to end it proves the idea: crowdsourced road-health data turned into routing you'd actually want.",
+    stat: "Real-time YOLOv8 · safest-route scoring",
+    stack: [
+      "YOLOv8",
+      "OpenCV",
+      "Python",
+      "Firebase Firestore",
+      "Google Maps API",
+      "Bootstrap",
+    ],
+    architecture: {
+      stages: [
+        { label: "Camera Feed", sub: "Dashcam / webcam mounted in the vehicle", domain: "systems" },
+        {
+          label: "YOLOv8 Detection",
+          sub: "Real-time pothole & speed-breaker spotting on the edge",
+          domain: "ai",
+        },
+        {
+          label: "GPS + Batcher",
+          sub: "Parallel GPS thread · detections batched every 50m",
+          domain: "systems",
+        },
+        {
+          label: "Firestore Sync",
+          sub: "Hazards + coordinates pushed to the cloud",
+          domain: "fullstack",
+        },
+        {
+          label: "Safest-Route Scoring",
+          sub: "Google Maps routes ranked by pothole density × severity",
+          domain: "ai",
+        },
+        {
+          label: "Navigation UI",
+          sub: "Live heatmap · voice alerts within 100m of a hazard",
+          domain: "fullstack",
+        },
+      ],
+      note: "Each candidate route is scored by nearby potholes weighted by severity — so the 'safest' path can win over the fastest one.",
+    },
+    github: "https://github.com/Ajayyy00/Pothole-detection",
   },
 ];
 
