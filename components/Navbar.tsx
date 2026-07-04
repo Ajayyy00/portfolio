@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { site } from "@/data/site";
 import { useActiveSection } from "@/lib/useActiveSection";
+import { smoothScrollTo } from "@/lib/smoothScroll";
 
 const links = [
   { id: "about", label: "About" },
@@ -29,6 +30,11 @@ export default function Navbar() {
     else setHidden(false);
   });
 
+  const go = (e: React.MouseEvent, id: string) => {
+    e.preventDefault();
+    smoothScrollTo(id);
+  };
+
   return (
     <motion.header
       variants={{
@@ -49,6 +55,7 @@ export default function Navbar() {
         <a
           href="#hero"
           aria-label="Back to top"
+          onClick={(e) => go(e, "hero")}
           className="group flex items-center p-1.5"
         >
           <span className="inline-block h-2.5 w-2.5 rounded-full bg-ai transition-transform duration-300 group-hover:scale-125" />
@@ -59,6 +66,7 @@ export default function Navbar() {
             <li key={link.id}>
               <a
                 href={`#${link.id}`}
+                onClick={(e) => go(e, link.id)}
                 className={`relative rounded-full px-3 py-1.5 text-sm transition-colors ${
                   activeId === link.id
                     ? "text-text"

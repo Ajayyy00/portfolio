@@ -48,7 +48,7 @@ components/
 data/
   site.ts             # name, contact, socials, résumé path
   skills.ts           # 4 domain groups
-  projects.ts         # 6 featured projects
+  projects.ts         # 8 featured projects
   experience.ts       # Datamyth + SDC (with 5 contributions)
   certifications.ts   # from résumé
   achievements.ts     # hackathon finals
